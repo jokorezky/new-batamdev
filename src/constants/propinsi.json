@@ -1,0 +1,134 @@
+[
+        {
+            "nama": "Aceh",
+            "city": ["Banda Aceh", "Sabang", "Langsa", "Lhokseumawe"]
+        },
+        {
+            "nama": "Sumatera Utara",
+            "city": ["Medan", "Pematangsiantar", "Binjai", "Tanjung Balai"]
+        },
+        {
+            "nama": "Sumatera Barat",
+            "city": ["Padang", "Solok", "Bukittinggi", "Padang Panjang"]
+        },
+        {
+            "nama": "Riau",
+            "city": ["Pekanbaru", "Dumai", "Bengkalis", "Selat Panjang"]
+        },
+        {
+            "nama": "Jambi",
+            "city": ["Jambi", "Sungai Penuh", "Kuala Tungkal"]
+        },
+        {
+            "nama": "Sumatera Selatan",
+            "city": ["Palembang", "Prabumulih", "Pagar Alam", "Lubuklinggau"]
+        },
+        {
+            "nama": "Bengkulu",
+            "city": ["Bengkulu", "Curup", "Manna", "Arga Makmur"]
+        },
+        {
+            "nama": "Lampung",
+            "city": ["Bandar Lampung", "Metro", "Lampung Selatan", "Tanggamus"]
+        },
+        {
+            "nama": "Kepulauan Bangka Belitung",
+            "city": ["Pangkal Pinang", "Toboali", "Manggar", "Belinyu"]
+        },
+        {
+            "nama": "Kepulauan Riau",
+            "city": ["Tanjung Pinang", "Batam", "Bintan", "Karimun"]
+        },
+        {
+            "nama": "DKI Jakarta",
+            "city": ["Jakarta Pusat", "Jakarta Barat", "Jakarta Timur", "Jakarta Selatan"]
+        },
+        {
+            "nama": "Jawa Barat",
+            "city": ["Bandung", "Bogor", "Depok", "Cirebon"]
+        },
+        {
+            "nama": "Jawa Tengah",
+            "city": ["Semarang", "Surakarta", "Tegal", "Pekalongan"]
+        },
+        {
+            "nama": "DI Yogyakarta",
+            "city": ["Yogyakarta", "Bantul", "Sleman", "Gunung Kidul"]
+        },
+        {
+            "nama": "Jawa Timur",
+            "city": ["Surabaya", "Malang", "Sidoarjo", "Mojokerto"]
+        },
+        {
+            "nama": "Banten",
+            "city": ["Serang", "Tangerang", "Cilegon", "Serang"]
+        },
+        {
+            "nama": "Bali",
+            "city": ["Denpasar", "Singaraja", "Tabanan", "Klungkung"]
+        },
+        {
+            "nama": "Nusa Tenggara Barat",
+            "city": ["Mataram", "Bima", "Sumbawa Besar", "Dompu"]
+        },
+        {
+            "nama": "Nusa Tenggara Timur",
+            "city": ["Kupang", "Maumere", "Ende", "Labuan Bajo"]
+        },
+        {
+            "nama": "Kalimantan Barat",
+            "city": ["Pontianak", "Singkawang", "Ketapang", "Sintang"]
+        },
+        {
+            "nama": "Kalimantan Tengah",
+            "city": ["Palangka Raya", "Sampit", "Kuala Kapuas", "Buntok"]
+        },
+        {
+            "nama": "Kalimantan Selatan",
+            "city": ["Banjarmasin", "Banjarbaru", "Martapura", "Banjar"]
+        },
+        {
+            "nama": "Kalimantan Timur",
+            "city": ["Samarinda", "Balikpapan", "Bontang", "Tenggarong"]
+        },
+        {
+            "nama": "Kalimantan Utara",
+            "city": ["Tanjung Selor", "Tarakan", "Malinau", "Bulungan"]
+        },
+        {
+            "nama": "Sulawesi Utara",
+            "city": ["Manado", "Bitung", "Tomohon", "Kotamobagu"]
+        },
+        {
+            "nama": "Sulawesi Tengah",
+            "city": ["Palu", "Donggala", "Poso", "Toli-Toli"]
+        },
+        {
+            "nama": "Sulawesi Selatan",
+            "city": ["Makassar", "Makale", "Parepare", "Palopo"]
+        },
+        {
+            "nama": "Sulawesi Tenggara",
+            "city": ["Kendari", "Bau-Bau", "Wakatobi", "Kolaka"]
+        },
+        {
+            "nama": "Gorontalo",
+            "city": ["Gorontalo", "Majene", "Bone Bolango", "Pohuwato"]
+        },
+        {
+            "nama": "Maluku",
+            "city": ["Ambon", "Tual", "Ternate", "Kota Tidore Kepulauan"]
+        },
+        {
+            "nama": "Maluku Utara",
+            "city": ["Ternate", "Tidore Kepulauan", "Sofifi", "Labuha"]
+        },
+        {
+            "nama": "Papua Barat",
+            "city": ["Manokwari", "Sorong", "Fakfak", "Sorong Selatan"]
+        },
+        {
+            "nama": "Papua",
+            "city": ["Jayapura", "Biak", "Merauke", "Wamena"]
+        }
+    ]

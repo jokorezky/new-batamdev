@@ -1,0 +1,135 @@
+{
+  "Navigation": {
+    "news": "Berita",
+    "jobs": "Lowongan",
+    "events": "Acara",
+    "podcast": "Podcast Video",
+    "database": "Basis Data",
+    "about": "Tentang",
+    "home": "Beranda",
+    "academy": "Akademi",
+    "startup": "Startup",
+    "opini": "Opini",
+    "insights": "Wawasan",
+    "ai": "Kecerdasan Buatan",
+    "topStories": "Berita Utama",
+    "ecommerce": "E-Commerce",
+    "cyberSecurity": "Keamanan Siber",
+    "community": "Komunitas",
+    "browseJobs": "Telusuri Lowongan",
+    "whyKinigoJobs": "Kenapa Kinigo Jobs?",
+    "upcoming": "Akan Datang",
+    "meetup": "Temu",
+    "pastEvents": "Acara Lalu",
+    "companies": "Perusahaan",
+    "whyKinigoDatabase": "Mengapa Kinigo Database?",
+    "createNewCompany": "daftarkan Perusahaan Baru",
+    "kinigo": "Kinigo",
+    "team": "Tim",
+    "culture": "Budaya",
+    "joinUs": "Bergabung Bersama Kami",
+    "getNewsletter": "Dapatkan Buletin",
+    "mobileApps": "Aplikasi Mobile",
+    "wallOfLove": "Wall of Love"
+  },
+  "JobsPage": {
+    "title": "KinigoJobs",
+    "addResume": {
+      "title": "Tambahkan resume Anda",
+      "subtitle": "untuk mulai mendapatkan tawaran pekerjaan potensial!"
+    },
+    "filters": {
+      "location": "Pilih Lokasi",
+      "skills": "Pilih Keahlian",
+      "experience": "Pengalaman Kerja",
+      "industry": "Industri",
+      "salary": "Kisaran Gaji",
+      "type": "Jenis Pekerjaan",
+      "title": "Filter"
+    },
+    "clearFilters": "Hapus Semua Filter",
+    "filterTypes": {
+      "Location": "Lokasi",
+      "Skill": "Keahlian",
+      "Experience": "Pengalaman",
+      "Industry": "Industri",
+      "Salary": "Gaji",
+      "JobType": "Jenis"
+    },
+    "jobTypes": {
+      "FullTime": "Full-Time",
+      "PartTime": "Part-Time",
+      "Contract": "Kontrak",
+      "Internship": "Magang"
+    },
+    "experience": {
+      "Under1Year": "<1 Tahun",
+      "13Years": "1-3 Tahun",
+      "35Years": "3-5 Tahun",
+      "Over5Years": ">5 Tahun"
+    },
+    "industries": {
+      "IT": "IT",
+      "Finance": "Keuangan",
+      "Healthcare": "Kesehatan",
+      "Education": "Pendidikan",
+      "Retail": "Ritel"
+    },
+    "salaries": {
+      "Under4": "<4Jt",
+      "47": "4JT-7Jt",
+      "711": "7Jt-11Jt",
+      "1117": "11Jt-17Jt",
+      "Over17": ">17Jt"
+    },
+    "locations": {
+      "Jakarta": "Jakarta",
+      "Batam": "Batam",
+      "Bandung": "Bandung",
+      "Yogyakarta": "Yogyakarta",
+      "Bali": "Bali"
+    },
+    "skills": {
+      "JavaScript": "JavaScript",
+      "React": "React",
+      "Nextjs": "Next.js",
+      "Nodejs": "Node.js",
+      "GraphQL": "GraphQL",
+      "TypeScript": "TypeScript"
+    },
+    "Report": "Lapor",
+    "Function": "Fungsi",
+    "Type": "Tipe",
+    "Experience": "Pengalaman",
+    "Vacancies": "Lowongan Pekerjaan",
+    "JobActions": {
+      "Share": "Bagikan lowongan",
+      "Save": "Simpan",
+      "Apply": "Lamar pekerjaan"
+    },
+    "RequiredSkills": "Keahlian yang dibutuhkan",
+    "JobDescriptionRequirements": "Uraian pekerjaan & kualifikasi",
+    "Culture": "Budaya",
+    "AboutTheCompany": "Tentang Perusahaan",
+    "Location": "Lokasi",
+    "Industries": "Industri",
+    "Employees": "Karyawan",
+    "CompanyProfile": "Profil Perusahaan",
+    "SimilarJobs": "Lowongan serupa",
+    "DateCreated": "Tanggal diposting"
+  },
+  "storylines": "Cerita",
+  "seeMore": "Lihat Selengkapnya",
+  "trendingTopics": "Ikuti topik yang sedang tren",
+  "clubFounderPeople": "PENDIRI KLUB",
+  "startup": "STARTUP",
+  "layoffsTitle": "Daftar lengkap PHK teknologi tahun 2025",
+  "layoffsDate": "19 Maret 2025",
+  "latestNews": "Terbaru",
+  "next": "Berikutnya",
+  "upcomingEvents": "Event",
+  "registerNow": "Daftar Sekarang",
+  "most": "Paling",
+  "popular": "Populer",
+  "topStory": "Pilihan"
+}

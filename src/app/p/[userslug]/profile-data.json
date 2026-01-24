@@ -1,0 +1,27 @@
+{
+  "profile": {
+    "avatarUrl": "https://randomuser.me/api/portraits/men/1.jpg",
+    "fullName": "John Doe",
+    "username": "johndoe",
+    "email": "john.doe@example.com",
+    "phone": "+1 (555) 123-4567",
+    "role": "Senior Software Engineer",
+    "company": "Tech Innovations Inc.",
+    "website": "https://johndoe.dev",
+    "bio": "Passionate software engineer with 5+ years of experience building scalable web applications. Specializing in React, Node.js, and cloud technologies.",
+    "socialLinks": [
+      {
+        "platform": "twitter",
+        "url": "https://twitter.com/johndoe"
+      },
+      {
+        "platform": "github",
+        "url": "https://github.com/johndoe"
+      },
+      {
+        "platform": "linkedin",
+        "url": "https://linkedin.com/in/johndoe"
+      }
+    ]
+  }
+}

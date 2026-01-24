@@ -1,0 +1,135 @@
+{
+    "Navigation": {
+        "news": "News",
+        "jobs": "Jobs",
+        "events": "Events",
+        "podcast": "Podcast Video",
+        "database": "Database",
+        "about": "About",
+        "home": "Home",
+        "academy": "Academy",
+        "startup": "STARTUP",
+        "opini": "OPINI",
+        "insights": "INSIGHTS",
+        "ai": "AI",
+        "topStories": "TOP STORIES",
+        "ecommerce": "ECOMMERCE",
+        "cyberSecurity": "CYBER SECURITY",
+        "community": "COMMUNITY",
+        "browseJobs": "Browse Jobs",
+        "whyKinigoJobs": "Why kinigo jobs?",
+        "upcoming": "Upcoming",
+        "meetup": "Meetup",
+        "pastEvents": "Past Events",
+        "companies": "Companies",
+        "whyKinigoDatabase": "Why Kinigo Database?",
+        "createNewCompany": "Create New Company",
+        "kinigo": "KINIGO",
+        "team": "Team",
+        "culture": "Culture",
+        "joinUs": "Join Us",
+        "getNewsletter": "Get Newsletter",
+        "mobileApps": "Mobile Apps",
+        "wallOfLove": "Wall of Love"
+    },
+    "JobsPage": {
+        "title": "KinigoJobs",
+        "addResume": {
+        "title": "Add your resume",
+        "subtitle": "to start getting potential job offers!"
+        },
+        "filters": {
+        "location": "Select Location",
+        "skills": "Select Skills",
+        "experience": "Years of Experience",
+        "industry": "Industry",
+        "salary": "Salary Range",
+        "type": "Type",
+        "title":"Filter"
+        },
+        "clearFilters": "Clear All Filters",
+        "filterTypes": {
+        "Location": "Location",
+        "Skill": "Skill",
+        "Experience": "Experience",
+        "Industry": "Industry",
+        "Salary": "Salary",
+        "JobType": "Type"
+        },
+        "jobTypes": {
+        "FullTime": "Full-Time",
+        "PartTime": "Part-Time",
+        "Contract": "Contract",
+        "Internship": "Internship"
+        },
+        "experience": {
+        "Under1Year": "<1 Year",
+        "13Years": "1-3 Years",
+        "35Years": "3-5 Years",
+        "Over5Years": ">5 Years"
+        },
+        "industries": {
+        "IT": "IT",
+        "Finance": "Finance",
+        "Healthcare": "Healthcare",
+        "Education": "Education",
+        "Retail": "Retail"
+        },
+        "salaries": {
+        "Under4": "<4Jt",
+        "47": "4JT-7Jt",
+        "711": "7Jt-11Jt",
+        "1117": "11Jt-17Jt",
+        "Over17": ">17Jt"
+        },
+        "locations": {
+        "Jakarta": "Jakarta",
+        "Batam": "Batam",
+        "Bandung": "Bandung",
+        "Yogyakarta": "Yogyakarta",
+        "Bali": "Bali"
+        },
+        "skills": {
+        "JavaScript": "JavaScript",
+        "React": "React",
+        "Nextjs": "Next.js",
+        "Nodejs": "Node.js",
+        "GraphQL": "GraphQL",
+        "TypeScript": "TypeScript"
+        },
+        "Report":"Report",
+        "Function":"Function",
+        "Type":"Type",
+        "Experience":"Experience",
+        "Vacancies": "Vacancies",
+        "JobActions": {
+            "Share": "Share this job",
+            "Save": "Save",
+            "Apply": "Apply for job"
+        },
+        "RequiredSkills":"Required skills",
+        "JobDescriptionRequirements":"Job description & requirements",
+        "Culture":"Culture",
+        "AboutTheCompany":"About the company",
+        "Location":"Location",
+        "Industries":"Industries",
+        "Employees":"Employees",
+        "CompanyProfile":"Company Profile",
+        "SimilarJobs": "Similar jobs",
+        "DateCreated": "Date posted"
+    },
+    "storylines": "Storylines",
+    "seeMore": "See More",
+    "trendingTopics": "Catch up on trending topics",
+    "clubFounderPeople": "CLUB FOUNDER PEOPLE",
+    "startup": "STARTUP",
+    "layoffsTitle": "A comprehensive list of 2025 tech layoffs",
+    "layoffsDate": "March 19, 2025",
+    "latestNews": "Latest News",
+    "next": "Next",
+    "upcomingEvents": "Upcoming Events",
+    "registerNow": "Register Now",
+    "most": "Most",
+    "popular": "Popular",
+    "topStory": "Top Story"
+}
