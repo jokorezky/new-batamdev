@@ -41,9 +41,11 @@ export default function FuturisticCommunityLanding(): JSX.Element {
     { title: "Cybersecurity Meetup", date: "November 10, 2025" },
   ]);
 
+  const totalMembers = 558;
+
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden font-sans">
-      {/* HERO */}
+      
       <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-40 bg-gradient-to-b from-black via-red-900/40 to-black">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -75,7 +77,6 @@ export default function FuturisticCommunityLanding(): JSX.Element {
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -z-10 w-[120%] h-full bg-gradient-to-b from-red-600/20 to-transparent blur-3xl animate-pulse" />
       </section>
 
-      {/* WHY JOIN */}
       <section className="px-4 py-20 md:px-6 md:py-32 max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">
           Why Join Us?
@@ -100,7 +101,6 @@ export default function FuturisticCommunityLanding(): JSX.Element {
         </div>
       </section>
 
-      {/* UPCOMING EVENTS */}
       <section id="events" className="px-4 py-20 md:px-6 md:py-32 bg-black/70">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">
           Upcoming Events
@@ -131,16 +131,34 @@ export default function FuturisticCommunityLanding(): JSX.Element {
         </div>
       </section>
 
-      {/* COMMUNITY */}
       <section
         id="community"
-        className="px-4 py-20 md:px-6 md:py-32 bg-gradient-to-b from-black via-red-900/20 to-black"
+        className="relative px-4 py-24 md:px-6 md:py-36 bg-gradient-to-b from-black via-red-900/30 to-black overflow-hidden"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">
-          Active Members
-        </h2>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,0,0,0.25),transparent_60%)] blur-3xl" />
 
-        <div className="relative w-full h-72 md:h-96">
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Active Members
+          </h2>
+
+          <p className="text-gray-400 mb-12 text-sm md:text-base">
+            Builders, engineers, and creators actively learning and shipping.
+          </p>
+
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="relative inline-flex items-center justify-center mb-16"
+          >
+            <div className="absolute inset-0 rounded-full bg-red-600/30 blur-3xl animate-pulse" />
+            <div className="relative text-6xl md:text-8xl font-extrabold text-red-500">
+              {totalMembers}+
+            </div>
+          </motion.div>
+
+          <div className="relative w-full h-72 md:h-96">
           {users.map((user, i) => (
             <motion.img
               key={i}
@@ -157,9 +175,10 @@ export default function FuturisticCommunityLanding(): JSX.Element {
             />
           ))}
         </div>
+        </div>
       </section>
 
-      {/* PAST EVENTS */}
+
       <section className="px-4 py-20 md:px-6 md:py-32 bg-black/80">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">
           Past Events
@@ -185,7 +204,6 @@ export default function FuturisticCommunityLanding(): JSX.Element {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="px-4 py-20 md:px-6 md:py-32 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">
           Ready to Level Up?
