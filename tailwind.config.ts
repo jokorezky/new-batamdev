@@ -9,115 +9,132 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      /* =========================
+         BREAKPOINTS
+      ========================= */
       screens: {
         "1440": "1440px",
       },
+
+      /* =========================
+         FONTS
+      ========================= */
       fontFamily: {
-        playfair: ["Playfair Display", "serif"],
-        nexaLight: ["NexaExtraLight", "sans"],
-        nexaHeavy: ["NexaHeavy", "sans"],
         sans: [
+          "Inter",
           "-apple-system",
           "BlinkMacSystemFont",
           '"Segoe UI"',
           "Roboto",
-          '"Oxygen-Sans"',
           "Ubuntu",
           "Cantarell",
           '"Helvetica Neue"',
           "sans-serif",
         ],
+        display: ["Space Grotesk", "Inter", "sans-serif"],
       },
+
+      /* =========================
+         COLORS (FUTURISTIC RED)
+      ========================= */
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
+        background: "#000000",
+        foreground: "#ffffff",
+
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "rgba(255,255,255,0.05)",
+          foreground: "#ffffff",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
+
+        border: "rgba(255,0,0,0.35)",
+        input: "rgba(255,255,255,0.1)",
+        ring: "rgba(239,68,68,0.8)",
+
         primary: {
-          DEFAULT: "#16a34a", // Warna default (green)
-          dark: "#2563EB", // Warna dark (blue)
+          DEFAULT: "#ef4444", // red-500
+          hover: "#dc2626",   // red-600
+          glow: "rgba(239,68,68,0.45)",
         },
-        textPrimary: {
-          DEFAULT: "#ffffff", // Text untuk primary
-          dark: "#f3f4f6", // Text untuk dark
+
+        muted: {
+          DEFAULT: "#9ca3af", // zinc-400
+          foreground: "#71717a",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+
+        accent: {
+          DEFAULT: "#ef4444",
+          foreground: "#ffffff",
+        },
+
+        destructive: {
+          DEFAULT: "#b91c1c",
+          foreground: "#ffffff",
         },
       },
+
+      /* =========================
+         BORDER RADIUS
+      ========================= */
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "2rem",
       },
+
+      /* =========================
+         SHADOWS
+      ========================= */
+      boxShadow: {
+        glow: "0 0 40px rgba(239,68,68,0.35)",
+        "glow-lg": "0 0 60px rgba(239,68,68,0.45)",
+        soft: "0 10px 30px rgba(0,0,0,0.4)",
+      },
+
+      /* =========================
+         BACKDROP / GLASS
+      ========================= */
+      backdropBlur: {
+        xs: "2px",
+      },
+
+      /* =========================
+         KEYFRAMES
+      ========================= */
       keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
+        fadeUp: {
+          "0%": { opacity: "0", transform: "translateY(16px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+        glowPulse: {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
         },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+        accordionDown: {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        accordionUp: {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
+
+      /* =========================
+         ANIMATIONS
+      ========================= */
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        fadeIn: "fadeIn 0.4s ease forwards",
+        fadeUp: "fadeUp 0.5s ease-out forwards",
+        glow: "glowPulse 2.5s ease-in-out infinite",
+        "accordion-down": "accordionDown 0.2s ease-out",
+        "accordion-up": "accordionUp 0.2s ease-out",
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+  ],
 };
+
 export default config;

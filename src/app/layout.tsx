@@ -5,7 +5,7 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "kinigo - Menuju Masa Depan",
+  title: "batamdev - Empowering Batam's Tech Community",
   description: "Kinigo adalah ekosistem teknologi terdepan di Batam...",
   icons: {
     icon: "/favicon.png",

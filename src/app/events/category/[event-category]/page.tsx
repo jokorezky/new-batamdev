@@ -107,7 +107,7 @@ export default function Events() {
               <AlertDescription>
                 <div className="">
                   <p className="text-center text-gray-600 text-sm lg:text-xl">
-                    Stay tuned for thrilling workshops and events—this is where
+                    Stay tuned for thrilling workshops and events. this is where
                     the action begins!
                   </p>
                   <p className="text-center text-gray-600 text-sm lg:text-xl">

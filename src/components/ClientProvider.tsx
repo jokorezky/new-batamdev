@@ -38,7 +38,6 @@ function IntlWrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Pisahkan Google Analytics Tracking ke komponen terpisah
 function GoogleAnalyticsTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -57,7 +56,6 @@ function GoogleAnalyticsTracker() {
 function FooterConditional() {
   const pathname = usePathname();
 
-  // Tentukan route yang tidak perlu footer
   const noFooterRoutes = ["/academies", "/settings"];
   const shouldHideFooter = noFooterRoutes.some((route) =>
     pathname?.startsWith(route)
