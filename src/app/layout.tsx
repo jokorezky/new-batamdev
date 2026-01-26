@@ -8,9 +8,9 @@ export const metadata: Metadata = {
   title: "batamdev - Empowering Batam's Tech Community",
   description: "Kinigo adalah ekosistem teknologi terdepan di Batam...",
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: "/header-logo.png",
+    shortcut: "/header-logo.png",
+    apple: "/header-logo.png",
   },
   keywords: [],
   openGraph: {

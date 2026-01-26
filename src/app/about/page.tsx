@@ -1,146 +1,216 @@
 "use client";
 
-import React from "react";
-import { Separator } from "@/components/ui/separator";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import {
-  NewspaperIcon,
-  BriefcaseBusinessIcon,
-  CalendarCheck,
-  MicIcon
+  Rocket,
+  ShieldCheck,
+  Users,
+  Code
 } from "lucide-react";
-import SocialIcons from "@/components/SocialIcons";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { about } from "@/constants/example";
 
-export default function AboutPage() {
+export default function AboutPage(): JSX.Element {
   return (
-    <div className="relative w-full bg-gray-100">
-      <header className=" py-3 bg-gradient-to-r from-green-900 to-green-700 relative">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30 pointer-events-none" />
-        <div className="w-full max-w-[1440px] mx-auto relative px-4 md:px-52">
-          <div className="flex items-center py-6 md:py-10 px-0 relative z-10">
-            <div className="w-full">
-              <div className="flex gap-4 md:gap-6">
-                <div>
-                  <h1 className="text-sm font-bold text-white relative w-fit after:content-[''] after:absolute after:-top-1 after:left-1/2 after:-translate-x-1/2 after:w-full after:border-t-[1px] after:border-green-500">
-                    About
-                  </h1>
-                  <img
-                    src="/logo-no-text.png"
-                    alt="Logo"
-                    className="mb-4 w-1/2 md:w-1/5"
-                  />
-                </div>
-              </div>
-              <div
-                dangerouslySetInnerHTML={{ __html: about }}
-                className="text-base md:text-xl font-medium text-white mt-1"
-              />
-            </div>
-          </div>
+    <main className="min-h-screen bg-black text-white overflow-x-hidden">
+
+      {/* HERO */}
+      <section className="relative px-4 pt-36 pb-28 md:pt-44 md:pb-36 text-center
+        bg-gradient-to-b from-black via-red-900/40 to-black"
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="
+            text-4xl md:text-5xl font-extrabold tracking-tight
+            bg-gradient-to-r from-red-500 to-orange-400
+            bg-clip-text text-transparent
+          "
+        >
+          Building Serious Builders
+        </motion.h1>
+
+        <p className="mt-6 max-w-2xl mx-auto text-gray-400 text-sm md:text-lg leading-relaxed">
+          BatamDev is a technology community and experimentation platform
+          focused on real-world systems, hackathons, and elite technical growth.
+        </p>
+      </section>
+
+      <section className="px-4 py-24 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl font-bold text-red-400 mb-4">
+            What is BatamDev?
+          </h2>
+          <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+            BatamDev is not just a community.
+            It is an ecosystem where developers, security engineers,
+            system builders, and innovators collaborate through
+            hackathons, events, and real technical challenges.
+            <br /><br />
+            We focus on execution, experimentation, and measurable outcomes -
+            not hype, not theory.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-2 gap-4"
+        >
+          <InfoCard icon={<Code />} title="Builders First" />
+          <InfoCard icon={<ShieldCheck />} title="Real Systems" />
+          <InfoCard icon={<Users />} title="Strong Community" />
+          <InfoCard icon={<Rocket />} title="Future Oriented" />
+        </motion.div>
+      </section>
+
+      {/* WHY WE EXIST */}
+      <section className="px-4 py-28 bg-black/80 border-t border-red-600/20">
+        <div className="max-w-5xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-4xl font-bold text-red-400 mb-6"
+          >
+            Why We Exist
+          </motion.h2>
+
+          <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-sm md:text-base">
+            Too many tech communities stop at talks and slides.
+            BatamDev exists to push builders beyond comfort —
+            into building, breaking, securing, and shipping real systems.
+            <br /><br />
+            We believe serious talent is forged through challenges,
+            not certificates.
+          </p>
         </div>
+      </section>
 
-      </header>
-      <div className="mb-8 md:mb-10">
-        <Separator className="h-8 md:h-12 w-4/5 md:w-3/5 bg-green-600" />
-        <Separator className="h-6 md:h-8 w-2/3 md:w-1/3 bg-green-200" />
-      </div>
-      <div className="w-full max-w-[1440px] mx-auto relative">
-        <main className="w-full px-4 md:px-32 space-y-4 pb-8 md:pb-10">
+      {/* WHAT WE BUILD */}
+      <section className="px-4 py-28 max-w-6xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold text-red-400 mb-12 text-center"
+        >
+          What We Build
+        </motion.h2>
 
-          <h1 className="text-sm font-bold text-gray-700 relative w-fit after:content-[''] after:absolute after:-top-1 after:left-1/2 after:-translate-x-1/2 after:w-full after:border-t-[1px] after:border-green-500">
-            Products
-          </h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card className="rounded-3xl">
-              <CardHeader>
-                <div>
-                  <button className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                    <NewspaperIcon className="w-6 h-6 md:w-8 md:h-8" />
-                  </button>
-                </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          <BuildCard
+            icon={<Rocket />}
+            title="Hackathons"
+            desc="High-signal competitions with real-world scenarios and evaluation."
+          />
+          <BuildCard
+            icon={<Users />}
+            title="Technical Events"
+            desc="Deep-dive sessions with practitioners, not influencers."
+          />
+          <BuildCard
+            icon={<ShieldCheck />}
+            title="Security Challenges"
+            desc="Red team, blue team, and system defense simulations."
+          />
+        </div>
+      </section>
 
-                <CardTitle className="pt-3 md:pt-4 text-2xl md:text-3xl">
-                  Media
-                </CardTitle>
-                <Separator className="my-3 md:my-4 mt-6 md:mt-10 bg-gray-100" />
-                <CardContent className="p-0 pt-2 md:pt-3">
-                  <div className="flex flex-wrap gap-2 text-sm md:text-base">
-                    Connecting the dots of information with cutting-edge insights.
-                    Stay informed with the latest tech news and analysis from
-                    Batam.
-                  </div>
-                </CardContent>
-              </CardHeader>
-            </Card>
-            <Card className="rounded-3xl">
-              <CardHeader>
-                <div>
-                  <button className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                    <BriefcaseBusinessIcon className="w-6 h-6 md:w-8 md:h-8" />
-                  </button>
-                </div>
+      {/* IMPACT */}
+      <section className="px-4 py-28 bg-gradient-to-b from-black via-red-900/30 to-black">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6 text-center">
+          <Stat value="5+" label="Years of Community" />
+          <Stat value="20+" label="Events & Hackathons" />
+          <Stat value="500+" label="Builders Impacted" />
+          <Stat value="∞" label="Experiments Ahead" />
+        </div>
+      </section>
 
-                <CardTitle className="pt-3 md:pt-4 text-2xl md:text-3xl">
-                  Jobs
-                </CardTitle>
-                <Separator className="my-3 md:my-4 mt-6 md:mt-10 bg-gray-100" />
-                <CardContent className="p-0 pt-2 md:pt-3">
-                  <div className="flex flex-wrap gap-2 text-sm md:text-base">
-                    "Connecting talent to opportunities. Helping you discover the
-                    best tech jobs and top professionals."
-                  </div>
-                </CardContent>
-              </CardHeader>
-            </Card>
-            <Card className="rounded-3xl">
-              <CardHeader>
-                <div>
-                  <button className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                    <CalendarCheck className="w-6 h-6 md:w-8 md:h-8" />
-                  </button>
-                </div>
+      {/* CTA */}
+      <section className="px-4 py-28 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-4xl font-bold text-white mb-6"
+        >
+          Be Part of the Ecosystem
+        </motion.h2>
 
-                <CardTitle className="pt-3 md:pt-4 text-2xl md:text-3xl">
-                  Events
-                </CardTitle>
-                <Separator className="my-3 md:my-4 mt-6 md:mt-10 bg-gray-100" />
-                <CardContent className="p-0 pt-2 md:pt-3">
-                  <div className="flex flex-wrap gap-2 text-sm md:text-base">
-                    Bringing communities together. Discover the latest tech
-                    events, workshops, and networking opportunities around you
-                  </div>
-                </CardContent>
-              </CardHeader>
-            </Card>
-            <Card className="rounded-3xl">
-              <CardHeader>
-                <div>
-                  <button className="w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                    <MicIcon className="w-6 h-6 md:w-8 md:h-8" />
-                  </button>
-                </div>
+        <p className="text-gray-400 max-w-xl mx-auto mb-10">
+          Join as a builder, collaborate as a partner,
+          or contribute as a speaker.
+        </p>
 
-                <CardTitle className="pt-3 md:pt-4 text-2xl md:text-3xl">
-                  Podcast
-                </CardTitle>
-                <Separator className="my-3 md:my-4 mt-6 md:mt-10 bg-gray-100" />
-                <CardContent className="p-0 pt-2 md:pt-3">
-                  <div className="flex flex-wrap gap-2 text-sm md:text-base">
-                    Discussions about technology, entrepreneurship, and community growth in Batam. GOTALK highlights the people and ideas driving the local tech ecosystem forward
-                  </div>
-                </CardContent>
-              </CardHeader>
-            </Card>
-          </div>
-        </main>
-        <main className="w-full px-4 md:px-52 space-y-4 pb-8 md:pb-10">
-          <h1 className="text-sm font-bold text-gray-700 relative w-fit after:content-[''] after:absolute after:-top-1 after:left-1/2 after:-translate-x-1/2 after:w-full after:border-t-[1px] after:border-green-500">
-            Follow Us
-          </h1>
-          <SocialIcons fill="gray" />
-        </main>
-      </div>
+        <div className="flex justify-center gap-4">
+          <Link
+            href="/join"
+            className="px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 transition"
+          >
+            Join Community
+          </Link>
+          <Link
+            href="/partners"
+            className="px-6 py-3 rounded-xl border border-red-600/40 hover:bg-red-600/20 transition"
+          >
+            Become a Partner
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+/* COMPONENTS */
+
+function InfoCard({ icon, title }: { icon: React.ReactNode; title: string }) {
+  return (
+    <div className="p-6 rounded-2xl bg-black/60 border border-red-600/30
+      flex flex-col items-center justify-center gap-3 backdrop-blur-xl"
+    >
+      <div className="text-red-500">{icon}</div>
+      <p className="font-semibold text-sm">{title}</p>
+    </div>
+  );
+}
+
+function BuildCard({
+  icon,
+  title,
+  desc,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.03 }}
+      className="p-6 rounded-3xl bg-black/60 border border-red-600/30 backdrop-blur-xl"
+    >
+      <div className="text-red-500 mb-4">{icon}</div>
+      <h3 className="font-bold mb-2">{title}</h3>
+      <p className="text-gray-400 text-sm">{desc}</p>
+    </motion.div>
+  );
+}
+
+function Stat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="p-6 rounded-2xl bg-black/60 border border-red-600/30 backdrop-blur-xl">
+      <p className="text-4xl font-extrabold text-red-400">{value}</p>
+      <p className="text-gray-400 text-sm mt-2">{label}</p>
     </div>
   );
 }

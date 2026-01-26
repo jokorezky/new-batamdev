@@ -57,12 +57,12 @@ export default function SpeakersPage(): JSX.Element {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="
-            text-4xl md:text-6xl font-extrabold tracking-tight
+            text-4xl md:text-5xl font-extrabold tracking-tight
             bg-gradient-to-r from-red-500 to-orange-400
             bg-clip-text text-transparent
           "
         >
-          Speakers of BatamDev
+          Speakers
         </motion.h1>
 
         <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-sm md:text-lg">

@@ -2,16 +2,11 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ShieldCheck, Users, Rocket } from "lucide-react";
+import { ShieldCheck, Users, Rocket } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-
-/* =========================
-   STATIC DATA (TEMP)
-========================= */
 
 interface Partner {
     id: string;
@@ -70,7 +65,7 @@ export default function CommunityPartnersPage(): JSX.Element {
             bg-gradient-to-r from-red-500 to-orange-400
             bg-clip-text text-transparent"
                 >
-                    Community Partners
+                    Partners
                 </motion.h1>
 
                 <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-sm md:text-lg">

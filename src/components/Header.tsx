@@ -51,6 +51,9 @@ export function Header() {
           <Link href="/speakers" className={navItem("/speakers")}>
             Speakers
           </Link>
+          <Link href="/about" className={navItem("/about")}>
+            About
+          </Link>
         </nav>
 
         {/* CTA */}

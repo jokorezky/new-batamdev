@@ -70,7 +70,7 @@ export default function MembersPage(): JSX.Element {
             bg-gradient-to-r from-red-500 to-orange-400
             bg-clip-text text-transparent"
         >
-          Community Members
+          Members
         </motion.h1>
 
         <motion.p
@@ -83,7 +83,6 @@ export default function MembersPage(): JSX.Element {
         </motion.p>
       </section>
 
-      {/* ===== MEMBERS GRID ===== */}
       <section className="max-w-6xl mx-auto">
         <motion.div
           variants={container}
@@ -146,8 +145,6 @@ export default function MembersPage(): JSX.Element {
           ))}
         </motion.div>
       </section>
-
-      {/* ===== CTA ===== */}
       <section className="mt-24 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
