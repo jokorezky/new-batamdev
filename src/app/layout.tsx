@@ -8,11 +8,6 @@ export const metadata: Metadata = {
   title: "BatamDev – Empowering Batam's Tech Community",
   description:
     "BatamDev is a technology and developer community in Batam focused on collaboration, events, hackathons, and growing digital talent.",
-  icons: {
-    icon: "/header-logo.png",
-    shortcut: "/header-logo.png",
-    apple: "/header-logo.png",
-  },
   keywords: [
     "BatamDev",
     "Batam Developer Community",
