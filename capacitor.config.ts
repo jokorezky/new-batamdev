@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.mokoopi.app',
-  appName: 'mokoopi',
+  appId: 'com.batamdev.app',
+  appName: 'batamdev',
   webDir: 'out'
 };
 
