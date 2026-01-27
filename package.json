@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "DISABLE_REACT_DEV_OVERLAY=true next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3008",
     "lint": "next lint",
     "export": "next export",
     "open:android": "npx cap open android"
