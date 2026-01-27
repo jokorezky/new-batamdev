@@ -134,8 +134,8 @@ export default function AboutPage(): JSX.Element {
         <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6 text-center">
           <Stat value={`${yearsOfCommunity}+`} label="Years of Community" />
           <Stat value="20+" label="Events & Hackathons" />
-          <Stat value="500+" label="Builders Impacted" />
-          <Stat value="∞" label="Experiments Ahead" />
+          <Stat value="200+" label="Builders Impacted" />
+          <Stat value="Always On" label="Experiments" />
         </div>
       </section>
 

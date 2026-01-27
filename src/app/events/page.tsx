@@ -231,15 +231,23 @@ export default function EventsPage(): JSX.Element {
           <p className="text-gray-300 max-w-2xl mx-auto mb-10">
             Share real-world insights and help shape the next generation of builders.
           </p>
-
-          <Link
-            href="/be-a-speaker"
-            className="inline-flex items-center gap-2
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Link
+              href="/be-a-speaker"
+              className="inline-flex items-center gap-2
               bg-red-600 px-10 py-4 rounded-2xl
               hover:bg-red-700 transition"
-          >
-            Apply as Speaker <ArrowRight className="w-5 h-5" />
-          </Link>
+            >
+              Apply as Speaker <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/speakers"
+              className="relative border border-red-600 text-red-400 px-10 py-4 rounded-2xl hover:bg-red-600/20 transition text-sm md:text-base shadow-md hover:shadow-[0_0_25px_rgba(255,0,0,0.5)]"
+            >
+              All Speaker
+            </Link>
+          </div>
+
         </motion.div>
       </section>
     </main>
