@@ -116,7 +116,7 @@ export default function FuturisticCommunityLanding(): JSX.Element {
           <img
             src="https://res.cloudinary.com/dbnxkii6r/image/upload/v1762769258/image/event/image/event/ed1d6dae-f0b9-4de2-b279-1743b9ee23c3_logo-batamdev-white.png"
             alt="BatamDev Logo"
-            className="h-24 md:h-32 w-auto animate-pulse"
+            className="h-24 md:h-32 max-w-full object-contain animate-pulse"
           />
 
           <p className="text-gray-400 max-w-md md:max-w-2xl mx-auto mb-8 text-base md:text-lg">
