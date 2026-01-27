@@ -8,8 +8,11 @@ import {
   Users,
   Code
 } from "lucide-react";
+const BATAMDEV_FOUNDED_YEAR = 2024;
 
 export default function AboutPage(): JSX.Element {
+  const currentYear = new Date().getFullYear();
+  const yearsOfCommunity = currentYear - BATAMDEV_FOUNDED_YEAR;
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
 
@@ -86,7 +89,7 @@ export default function AboutPage(): JSX.Element {
 
           <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-sm md:text-base">
             Too many tech communities stop at talks and slides.
-            BatamDev exists to push builders beyond comfort —
+            BatamDev exists to push builders beyond comfort
             into building, breaking, securing, and shipping real systems.
             <br /><br />
             We believe serious talent is forged through challenges,
@@ -129,7 +132,7 @@ export default function AboutPage(): JSX.Element {
       {/* IMPACT */}
       <section className="px-4 py-28 bg-gradient-to-b from-black via-red-900/30 to-black">
         <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6 text-center">
-          <Stat value="5+" label="Years of Community" />
+          <Stat value={`${yearsOfCommunity}+`} label="Years of Community" />
           <Stat value="20+" label="Events & Hackathons" />
           <Stat value="500+" label="Builders Impacted" />
           <Stat value="∞" label="Experiments Ahead" />

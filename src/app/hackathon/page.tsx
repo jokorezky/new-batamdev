@@ -47,7 +47,6 @@ const hackathons: HackathonItem[] = [
 export default function HackathonArchivePage(): JSX.Element {
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* HERO */}
       <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}

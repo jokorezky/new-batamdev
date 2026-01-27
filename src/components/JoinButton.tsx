@@ -208,7 +208,7 @@ export default function JoinButton(event: Readonly<JoinButtonProps>) {
               className="w-full border border-gray-300 rounded-lg p-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
             />
             <p className="text-xs text-gray-500 mt-1">
-              Format gambar (.jpg, .png) — Maksimal 2MB.
+              Format gambar (.jpg, .png) - Maksimal 2MB.
             </p>
             {paymentProof && (
               <p className="text-sm text-green-600 mt-1">

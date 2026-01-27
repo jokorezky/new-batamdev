@@ -1,13 +1,19 @@
 "use client";
 
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useListUsers } from "@/hooks/use-user";
+
+/* =======================
+   Types
+======================= */
 interface User {
-  id: string;
+  _id: string;
   username: string;
   full_name: string;
   picture?: string;
@@ -15,35 +21,9 @@ interface User {
   isCoreTeam?: boolean;
 }
 
-const users: User[] = [
-  {
-    id: "1",
-    username: "joko",
-    full_name: "Joko Pratama",
-    job_title: "Security Engineer",
-    isCoreTeam: true,
-  },
-  {
-    id: "2",
-    username: "alexdev",
-    full_name: "Alex Tan",
-    job_title: "Fullstack Developer",
-  },
-  {
-    id: "3",
-    username: "rizkyai",
-    full_name: "Rizky AI",
-    job_title: "AI Engineer",
-  },
-  {
-    id: "4",
-    username: "naufaldev",
-    full_name: "Naufal Dev",
-    job_title: "Backend Engineer",
-  },
-];
-
-/* ===== Framer Motion Variants ===== */
+/* =======================
+   Framer Motion
+======================= */
 const container = {
   hidden: {},
   show: {
@@ -54,45 +34,99 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0 },
 };
 
 export default function MembersPage(): JSX.Element {
+  /* =======================
+     Pagination State
+  ======================= */
+  const LIMIT = 24;
+  const [page, setPage] = useState<number>(1);
+  const [users, setUsers] = useState<User[]>([]);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  const { refetch: fetchUsers, data } = useListUsers(page, LIMIT, "", "DESC");
+
+  useEffect(() => {
+    const load = async () => {
+      if (!hasMore) return;
+      setLoading(true);
+      await fetchUsers();
+      setLoading(false);
+    };
+    load();
+  }, [page]);
+
+  useEffect(() => {
+    const list = data?.listUsers?.data;
+    const totalPage = data?.listUsers?.totalPage ?? 1;
+
+    if (!list) return;
+
+    setUsers((prev) => {
+      const normalized: User[] = list.map((u: any) => ({
+        ...u,
+        isCoreTeam: Boolean(u.isCoreTeam),
+      }));
+      return [...prev, ...normalized];
+    });
+
+    if (page >= totalPage) {
+      setHasMore(false);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (!loadMoreRef.current || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading) {
+          setPage((p) => p + 1);
+        }
+      },
+      { rootMargin: "200px" }
+    );
+
+    observer.observe(loadMoreRef.current);
+
+    return () => observer.disconnect();
+  }, [hasMore, loading]);
+
   return (
     <main className="min-h-screen bg-black text-white px-6 overflow-x-hidden">
-      <section className="text-center max-w-2xl mx-auto pt-36 pb-24 md:pt-44 md:pb-32">
+      <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           className="text-4xl md:text-5xl font-extrabold tracking-tight
             bg-gradient-to-r from-red-500 to-orange-400
             bg-clip-text text-transparent"
         >
-          Members
+          Community Members
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.25 }}
-          className="mt-4 text-sm md:text-base text-zinc-400"
-        >
-          Builders, hackers, founders, and engineers shaping the future.
-        </motion.p>
+        <p className="mt-4 text-sm md:text-base text-zinc-400">
+          Designers, engineers, mentors, hackers, founders, and builders shaping the future of technology.
+        </p>
       </section>
 
+      {/* GRID */}
       <section className="max-w-6xl mx-auto">
         <motion.div
           variants={container}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
+          animate="show"
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
           {users.map((user) => (
-            <motion.div key={user.id} variants={item}>
+            <motion.div key={user._id} variants={item}>
               <Link href={`/${user.username}`}>
                 <Card
                   className="group relative bg-white/5 backdrop-blur-xl
@@ -103,40 +137,37 @@ export default function MembersPage(): JSX.Element {
                   hover:shadow-[0_0_40px_rgba(255,0,0,0.35)]"
                 >
                   <CardContent className="p-6 flex flex-col items-center text-center gap-3">
-                    {/* AVATAR */}
-                    <div className="relative">
+                    <div className="relative w-[72px] h-[72px] rounded-full overflow-hidden">
                       <div
-                        className={`absolute inset-0 rounded-full blur-xl ${
-                          user.isCoreTeam
-                            ? "bg-red-500/40"
-                            : "bg-zinc-500/20"
-                        }`}
+                        className={`absolute inset-0 rounded-full blur-xl ${user.isCoreTeam
+                          ? "bg-red-500/40"
+                          : "bg-zinc-500/20"
+                          }`}
                       />
                       <Image
                         src={
-                          user.picture ||
-                          `https://api.dicebear.com/6.x/bottts/svg?seed=${user.full_name}`
+                          user.picture &&
+                            !user.picture.includes("coderjs.s3.ap-southeast-2.amazonaws.com")
+                            ? user.picture
+                            : `https://api.dicebear.com/6.x/bottts/svg?seed=${encodeURIComponent(
+                              user.full_name
+                            )}`
                         }
                         alt={user.full_name}
                         width={72}
                         height={72}
                         className="relative z-10 rounded-full border-2 border-red-500 bg-black"
                       />
+
                     </div>
 
-                    {/* INFO */}
                     <div className="space-y-0.5">
-                      <p className="font-semibold text-sm md:text-base">
+                      <p className="font-semibold text-sm md:text-base capitalize">
                         {user.full_name}
                       </p>
                       <p className="text-xs text-zinc-400">
                         @{user.username}
                       </p>
-                      {user.job_title && (
-                        <p className="text-[11px] text-zinc-500">
-                          {user.job_title}
-                        </p>
-                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -144,22 +175,32 @@ export default function MembersPage(): JSX.Element {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* LOADER / END */}
+        <div ref={loadMoreRef} className="h-20 flex items-center justify-center">
+          {loading && (
+            <span className="text-zinc-500 text-sm animate-pulse">
+              Loading more members...
+            </span>
+          )}
+
+          {!hasMore && !loading && (
+            <span className="text-zinc-600 text-sm">
+              You’ve reached the end.
+            </span>
+          )}
+        </div>
       </section>
+
+      {/* CTA */}
       <section className="mt-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+        <Button
+          size="lg"
+          className="rounded-2xl px-10 py-6 text-lg
+          bg-red-600 hover:bg-red-700 transition"
         >
-          <Button
-            size="lg"
-            className="rounded-2xl px-10 py-6 text-lg
-              bg-red-600 hover:bg-red-700 transition"
-          >
-            Join the Community
-          </Button>
-        </motion.div>
+          Join the Community
+        </Button>
       </section>
     </main>
   );

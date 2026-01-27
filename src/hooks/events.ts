@@ -200,6 +200,7 @@ export const useGetEventsQuery = (
   order: string = "DESC",
   timeStatus?: "upcoming" | "past"
 ) => {
+  const validOrder = order === "ASC" ? "ASC" : "DESC";
   const { data, loading, error, refetch } = useQuery<IEventListResponse>(
     GET_EVENTS_QUERY,
     {
@@ -209,7 +210,7 @@ export const useGetEventsQuery = (
           limit,
           order: {
             orderBy: "CREATED_AT",
-            sortBy: order,
+            sortBy: validOrder,
           },
           filter: timeStatus ? { timeStatus } : undefined,
         },
@@ -248,10 +249,10 @@ export const useGetCommunityEventsQuery = (
           },
           filter: filter
             ? {
-                format: filter.format,
-                title: filter.title,
-                timeStatus: filter.timeStatus,
-              }
+              format: filter.format,
+              title: filter.title,
+              timeStatus: filter.timeStatus,
+            }
             : undefined,
         },
       },
@@ -544,10 +545,10 @@ export const useGetEventsByCurrentUser = (
           },
           filter: filter
             ? {
-                format: filter.format,
-                title: filter.title,
-                timeStatus: filter.timeStatus,
-              }
+              format: filter.format,
+              title: filter.title,
+              timeStatus: filter.timeStatus,
+            }
             : undefined,
         },
       },
@@ -563,3 +564,4 @@ export const useGetEventsByCurrentUser = (
     refetch,
   };
 };
+

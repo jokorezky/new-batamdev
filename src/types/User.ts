@@ -1,3 +1,4 @@
+import { IListResponse } from "./Index";
 export interface User {
     _id: string;
     full_name: string;
@@ -25,7 +26,33 @@ export interface User {
     updatedAt: string;
 }
 
+export interface IUser {
+  _id: string;
+  email: string;
+  username: string;
+  full_name: string;
+  createdAt: string;
+  updatedAt: string;
+  picture: string;
+  nickName?: string;
+  job_title?: string;
+  bio?: string;
+  website?: string;
+  github?: string;
+  linkedin?: string;
+  province?: string;
+  city?: string;
+  skills?:string[];
+  isCoreTeam?: boolean;
+}
+
 export type SearchUsersResponse = {
   users: User[];
   count: number;
 };
+
+export interface IUserListResponse {
+  listUsers: IListResponse & {
+    data: IUser[];
+  };
+}

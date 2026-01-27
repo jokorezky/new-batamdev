@@ -22,17 +22,23 @@ interface Partner {
 const communityPartners: Partner[] = [
     {
         id: "c1",
-        name: "BatamDev",
+        name: "Batamdev",
         logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1764044520/raw/event/raw/event/a7504b5e-f05c-427d-afcd-fd50c2dda238_25283aa3-b536-4bc4-a78f-6b8b9cbcf658_batamdev-new%20%282%29%20%281%29.svg",
-        members: 1200,
-        highlight: "Core Community",
+        // members: 1200,
+        // highlight: "Core Community",
         url: "/batamdev",
     },
     {
         id: "c2",
+        name: "swift batam",
+        logo: "/swiftbatam.png",
+        url: "https://www.swiftbatam.id",
+    },
+    {
+        id: "c2",
         name: "BITS Batam",
-        logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1758275563/image/event/image/event/b3cef9c2-0d9a-49b9-a09d-a8e7de9c5c93_BITS-logo-petak-saja.png",
-        members: 800,
+        logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1767418437/image/event/image/event/6a16bf94-5a97-4101-99a5-b55ef6d6cd2b_bits.png",
+        // members: 800,
         url: "/cybersec-id",
     },
     {
@@ -41,12 +47,12 @@ const communityPartners: Partner[] = [
         logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1757126889/image/event/image/event/922cdf07-b397-4380-b51a-1c1ab3e3ec91_1000006278.jpg",
 
         url: "/ai-research-lab",
-        highlight: "Research Partner",
+        // highlight: "Research Partner",
     },
     {
         id: "4",
         name: "Batam Infra",
-        logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1756036647/image/event/image/event/fdda9406-fbab-4663-9cad-3e63385bb1c3_9eb97608-18a6-4170-b903-4f5c4b3ef366.jpg",
+        logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1762840544/image/event/image/event/862635d1-dc10-4b87-8a9a-cc32449c8738_batam-infra.png",
         url: "/startup-foundry",
     },
 ];
@@ -56,15 +62,64 @@ const institutionalPartners: Partner[] = [
         id: "i1",
         name: "BSSN",
         logo: "https://upload.wikimedia.org/wikipedia/commons/2/2c/LOGO_BSSN.png",
-        highlight: "National Cybersecurity Partner",
+        highlight: "Venue & National Cybersecurity Partner",
         url: "https://bsre.bssn.go.id",
     },
     {
+        id: "i4",
+        name: "solnet",
+        logo: "/solnet-logo.webp",
+        highlight: "Venue & Official Partner",
+        url: "https://solnet.net.id",
+    },
+    {
+        id: "i4",
+        name: "hacker otodidak",
+        logo: "https://hackerotodidak.com/wp-content/uploads/2021/05/text118-1.png",
+        highlight: "Official Partner",
+        url: "https://hackerotodidak.com",
+    },
+    {
+        id: "i3",
+        name: "Cubezone",
+        logo: "/cubezone.jpeg",
+        highlight: "Venue Partner",
+        url: "https://www.instagram.com/cubezone_",
+    },
+    {
+        id: "i4",
+        name: "orchard park batam",
+        logo: "/orchardparkbatam.png",
+        highlight: "Venue Partner",
+        url: "https://www.orchardparkbatam.com",
+    },
+    {
         id: "i2",
-        name: "skildev",
-        logo: "https://skildev.id/logo-skildev.png",
-        highlight: "Official Education Partner",
+        name: "skildev Academy",
+        logo: "https://skildev.id/logo-text-white.png",
+        highlight: "Venue & Official Education Partner",
         url: "https://skildev.id",
+    },
+    {
+        id: "i5",
+        name: "GoKepri",
+        logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1762760948/image/event/image/event/8c5e93d9-1a53-4408-986d-a79bd6d34814_logo-_-go-kepri.png",
+        highlight: "Media Partner",
+        url: "https://gokepri.com",
+    },
+    {
+        id: "i6",
+        name: "kinigo - menuju masa depan",
+        logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1762761089/image/event/image/event/0093929a-6f0d-4bf3-bb7a-1b20c3b0fcb7_logo-no-text%20%281%29.png",
+        highlight: "Media Partner",
+        url: "https://kinigo.id",
+    },
+    {
+        id: "i7",
+        name: "haluan kepri",
+        logo: "https://res.cloudinary.com/dbnxkii6r/image/upload/v1762762262/image/event/image/event/06cfd2a6-9bce-4900-9ef4-936103e78460_logo_kepri_2.png",
+        highlight: "Media Partner",
+        url: "https://kepri.harianhaluan.com",
     },
 ];
 
@@ -72,7 +127,7 @@ function PartnerCard({ partner }: { partner: Partner }) {
     const CardContentInner = (
         <Card className="group relative h-full bg-black/60 backdrop-blur-xl border border-red-600/30 rounded-3xl p-6 hover:-translate-y-2 hover:border-red-500 hover:shadow-[0_0_40px_rgba(255,0,0,0.35)] transition-all">
             {partner.highlight && (
-                <span className="absolute -top-3 right-5 bg-red-600 text-xs px-3 py-1 rounded-full">
+                <span className="absolute -top-3 text-red-400 right-5 bg-red-900 text-xs px-3 py-1 rounded-full">
                     {partner.highlight}
                 </span>
             )}
@@ -80,18 +135,19 @@ function PartnerCard({ partner }: { partner: Partner }) {
             <CardContent className="p-0 flex flex-col items-center text-center gap-4">
                 <div className="relative">
                     <div className="absolute inset-0 rounded-full bg-red-500/30 blur-2xl opacity-0 group-hover:opacity-100 transition" />
-                    <div className="relative z-10 w-20 h-20 rounded-full overflow-hidden border-2 border-red-500 bg-black">
+                    <div className="h-20 md:h-24 flex items-center">
                         <Image
                             src={partner.logo}
                             alt={partner.name}
-                            fill
-                            className="object-cover"
+                            height={96}
+                            width={240}
+                            className="h-full w-auto object-contain"
                         />
                     </div>
                 </div>
 
                 <div className="space-y-1">
-                    <p className="text-lg font-semibold text-red-400">
+                    <p className="font-semibold text-red-400 capitalize">
                         {partner.name}
                     </p>
 
@@ -181,7 +237,7 @@ export default function PartnersPage(): JSX.Element {
                     Institutional & Venue Partners
                 </h2>
 
-                <p className="text-sm text-zinc-400 mb-8 max-w-2xl">
+                <p className="text-sm text-zinc-400 mb-8">
                     National institutions and organizations that have hosted
                     or supported major events, workshops, and cybersecurity initiatives.
                 </p>

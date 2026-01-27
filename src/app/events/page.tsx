@@ -1,89 +1,203 @@
 "use client";
 
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, Mic } from "lucide-react";
+import { useGetEventsQuery } from "@/hooks/events";
 
-interface EventItem {
-  title: string;
-  date: string;
-  location: string;
-  highlight?: string;
-  slug: string;
+interface HostDetails {
+  name: string;
+  picture?: string | null;
+  username?: string;
+  title?: string;
 }
 
-const events: EventItem[] = [
-  {
-    title: "HackTown 2026",
-    date: "15 March 2026",
-    location: "Batam, Indonesia",
-    highlight: "Flagship Hackathon",
-    slug: "asdfsaf",
-  },
-  {
-    title: "AI Security Workshop",
-    date: "10 April 2026",
-    location: "Online / Hybrid",
-    highlight: "Limited Seats",
-    slug: "ai-security-workshop",
-  },
-  {
-    title: "Startup & Dev Meetup",
-    date: "22 May 2026",
-    location: "Batam",
-    slug: "startup-dev-meetup",
-  },
-];
+interface EventItem {
+  id: string;
+  title: string;
+  date: Date;
+  location: string;
+  slugname: string;
+  isPast: boolean;
+  hostDetails: HostDetails[];
+}
 
 export default function EventsPage(): JSX.Element {
+  const [page] = useState(1);
+  const order: "ASC" | "DESC" = "DESC";
+
+  const { data: dataEvents } = useGetEventsQuery(page, 100, order);
+  const now = new Date();
+
+  const events: EventItem[] = useMemo(() => {
+    if (!dataEvents?.data) return [];
+
+    return dataEvents.data.map((e: any) => {
+      const eventDate = new Date(e.startDate);
+
+      return {
+        id: e._id,
+        title: e.title,
+        date: eventDate,
+        location: e.location || "Batam",
+        slugname: e.slugname,
+        isPast: eventDate < now,
+        hostDetails: Array.isArray(e.hostDetails) ? e.hostDetails : [],
+      };
+    });
+  }, [dataEvents, now]);
+
+  const resolveAvatar = (
+    picture?: string | null,
+    seed: string = "guest",
+    style: string = "adventurer"
+  ): string => {
+    if (
+      picture &&
+      !picture.includes("coderjs.s3.ap-southeast-2.amazonaws.com")
+    ) {
+      return picture;
+    }
+
+    return `https://api.dicebear.com/6.x/${style}/svg?seed=${encodeURIComponent(
+      seed
+    )}`;
+  };
+
+
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
-      <section className="text-center max-w-2xl mx-auto pt-36 pb-24 md:pt-44 md:pb-32">
+
+      <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
         <motion.h1
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
           className="text-4xl md:text-5xl font-extrabold tracking-tight
             bg-gradient-to-r from-red-500 to-orange-400
             bg-clip-text text-transparent"
         >
           Events
         </motion.h1>
-        <p className="mt-4 max-w-xl mx-auto text-gray-400 text-sm md:text-lg">
-          coding, AI, cybersecurity, dan builder mindset.
+        <p className="mt-4 text-gray-400 text-sm md:text-lg">
+          Curated sessions shaping builders, engineers, and the future of tech.
         </p>
       </section>
-      <section className="px-4 max-w-6xl mx-auto">
+
+      <section className="relative px-4 max-w-6xl mx-auto">
+
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {events.map((event, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
+              key={event.id}
+              initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="relative bg-black/60 border border-red-600/40 rounded-3xl p-5 md:p-6 backdrop-blur-xl hover:scale-[1.03] transition shadow-glow"
+              transition={{ delay: i * 0.05 }}
+              className={`relative flex flex-col rounded-3xl p-6
+                backdrop-blur-xl border transition-all
+                ${event.isPast
+                  ? "bg-black/40 border-gray-700/40 opacity-70"
+                  : "bg-black/60 border-red-600/40 hover:border-red-500"}`}
             >
-              {event.highlight && (
-                <span className="absolute -top-3 right-4 bg-red-600 text-xs px-3 py-1 rounded-full">
-                  {event.highlight}
-                </span>
-              )}
-              <h3 className="text-xl md:text-2xl font-semibold text-red-500 mb-2">
+              <span
+                className={`absolute -top-3 right-4 text-xs px-3 py-1 rounded-full
+                  ${event.isPast
+                    ? "bg-gray-700 text-gray-300"
+                    : "bg-red-600 text-white"}`}
+              >
+                {event.isPast ? "Completed" : "Upcoming"}
+              </span>
+
+              <h3 className="line-clamp-3 text-xl md:text-2xl font-semibold text-red-500 mb-3">
                 {event.title}
               </h3>
-              <div className="flex items-center gap-2 text-gray-400 text-sm mb-1">
-                <Calendar className="w-4 h-4" /> {event.date}
+
+              <div className="flex items-center gap-2 text-gray-400 text-sm mb-2">
+                <Calendar className="w-4 h-4" />
+                {event.date.toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
               </div>
-              <div className="flex items-center gap-2 text-gray-400 text-sm">
-                <MapPin className="w-4 h-4" /> {event.location}
+
+              <div className="flex items-center gap-2 text-gray-400 text-sm mb-4">
+                <MapPin className="w-4 h-4" />
+                {event.location}
               </div>
+
+              {event.hostDetails.length > 0 && (
+                <div className="relative mb-6 flex items-center justify-between">
+
+                  <div className="flex items-center gap-3">
+
+                    <div className="relative flex items-center">
+                      {event.hostDetails.slice(0, 5).map((host, idx) => (
+                        <motion.img
+                          key={`${event.id}-host-${idx}`}
+                          src={resolveAvatar(
+                            host.picture,
+                            host.username || host.name,
+                            "adventurer"
+                          )}
+                          alt={host.name}
+                          title={host.name}
+                          className="
+              w-9 h-9 rounded-full
+              bg-black object-cover
+              border border-red-500/60
+              shadow-[0_0_12px_rgba(255,0,0,0.35)]
+              -ml-2 first:ml-0
+            "
+                          initial={{ opacity: 0, scale: 0.7 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.04 }}
+                        />
+                      ))}
+
+                      {event.hostDetails.length > 5 && (
+                        <span className="
+            ml-2 text-xs font-medium
+            text-gray-400
+          ">
+                          +{event.hostDetails.length - 5}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="leading-tight">
+                      <span className="
+          block text-[10px] tracking-widest uppercase
+          text-red-400
+        ">
+                        Host
+                      </span>
+
+
+                    </div>
+                  </div>
+
+                  <div className="
+      hidden md:block
+      w-2 h-2 rounded-full
+      bg-red-500/70
+      shadow-[0_0_12px_rgba(255,0,0,0.6)]
+    " />
+                </div>
+              )}
+
+
+
               <Link
-                href={`/events/${event.slug}`}
-                className="mt-5 w-full bg-red-600/90 hover:bg-red-600
-  py-2.5 rounded-xl flex items-center justify-center
-  gap-2 text-sm md:text-base transition"
+                href={`/events/${event.slugname}`}
+                className={`mt-auto w-full py-2.5 rounded-xl
+                  flex items-center justify-center gap-2
+                  text-sm md:text-base transition
+                  ${event.isPast
+                    ? "bg-gray-700"
+                    : "bg-red-600/90 hover:bg-red-600"}`}
               >
                 View Details <ArrowRight className="w-4 h-4" />
               </Link>
@@ -91,16 +205,42 @@ export default function EventsPage(): JSX.Element {
           ))}
         </div>
       </section>
-      <section className="px-4 py-20 md:py-32 text-center bg-gradient-to-b from-black via-red-900/30 to-black">
-        <h2 className="text-2xl md:text-4xl font-bold mb-4">
-          Build. Connect. Level Up.
-        </h2>
-        <p className="text-gray-400 max-w-md mx-auto mb-6 text-sm md:text-base">
-          Jangan cuma nonton. Ikut event dan jadi bagian dari movement teknologi masa depan.
-        </p>
-        <button className="bg-red-600 px-8 py-4 rounded-2xl text-lg hover:bg-red-700 transition">
-          Join Next Event
-        </button>
+
+      <section className="relative px-6 py-28 md:py-36
+        bg-gradient-to-b from-black via-red-900/20 to-black">
+        <motion.div
+          initial={{ opacity: 0, y: 36 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center
+            bg-black/60 border border-red-600/40
+            rounded-[2.5rem] p-10 md:p-16 backdrop-blur-xl"
+        >
+          <div className="mx-auto mb-6 w-16 h-16 rounded-full
+            bg-red-600/20 flex items-center justify-center">
+            <Mic className="w-8 h-8 text-red-500" />
+          </div>
+
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6
+            bg-gradient-to-r from-red-500 to-orange-400
+            bg-clip-text text-transparent">
+            Be a Speaker
+          </h2>
+
+          <p className="text-gray-300 max-w-2xl mx-auto mb-10">
+            Share real-world insights and help shape the next generation of builders.
+          </p>
+
+          <Link
+            href="/be-a-speaker"
+            className="inline-flex items-center gap-2
+              bg-red-600 px-10 py-4 rounded-2xl
+              hover:bg-red-700 transition"
+          >
+            Apply as Speaker <ArrowRight className="w-5 h-5" />
+          </Link>
+        </motion.div>
       </section>
     </main>
   );

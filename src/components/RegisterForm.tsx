@@ -118,7 +118,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
       <div className="px-0 lg:px-11">
         <div className="space-y-8">
           <p className="text-center text-gray-500">
-            Sign up quickly and securely using your Google account — no need to
+            Sign up quickly and securely using your Google account - no need to
             create a new password.
           </p>
           <Button

@@ -41,7 +41,7 @@ export async function generateMetadata(props: any): Promise<Metadata> {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: `${job.title} — ${job.companyId?.name}`,
+      title: `${job.title} - ${job.companyId?.name}`,
       description: descriptionText,
       url: canonicalUrl,
       type: "article",
