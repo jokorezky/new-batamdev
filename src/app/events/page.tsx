@@ -68,7 +68,6 @@ export default function EventsPage(): JSX.Element {
 
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
-
       <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
         <motion.h1
           initial={{ opacity: 0, y: 28 }}
@@ -84,9 +83,7 @@ export default function EventsPage(): JSX.Element {
           Curated sessions shaping builders, engineers, and the future of tech.
         </p>
       </section>
-
       <section className="relative px-4 max-w-6xl mx-auto">
-
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {events.map((event, i) => (
             <motion.div

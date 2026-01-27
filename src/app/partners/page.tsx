@@ -184,12 +184,14 @@ function PartnerCard({ partner }: { partner: Partner }) {
 export default function PartnersPage(): JSX.Element {
     return (
         <main className="min-h-screen bg-black text-white overflow-x-hidden">
-            <section className="text-center max-w-3xl mx-auto pt-36 pb-24 md:pt-44 md:pb-32">
+            <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
                 <motion.h1
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent"
+                    className="text-4xl md:text-5xl font-extrabold tracking-tight
+            bg-gradient-to-r from-red-500 to-orange-400
+            bg-clip-text text-transparent"
                 >
                     Partners & Collaborators
                 </motion.h1>
@@ -212,7 +214,7 @@ export default function PartnersPage(): JSX.Element {
                 </div>
             </section>
 
-            <section className="px-4 max-w-7xl mx-auto pb-24">
+            <section className="px-4 max-w-6xl mx-auto pb-24">
                 <h2 className="text-2xl font-bold mb-8 text-red-400">
                     Community Partners
                 </h2>
@@ -232,7 +234,7 @@ export default function PartnersPage(): JSX.Element {
                 </div>
             </section>
 
-            <section className="px-4 max-w-7xl mx-auto pb-32">
+            <section className="px-4 max-w-6xl mx-auto pb-32">
                 <h2 className="text-2xl font-bold mb-4 text-red-400">
                     Institutional & Venue Partners
                 </h2>

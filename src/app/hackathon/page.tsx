@@ -3,10 +3,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  Calendar,
-  ShieldCheck,
+  // Calendar,
+  // ShieldCheck,
   Rocket,
-  Archive,
+  // Archive,
   Handshake,
   Building2,
 } from "lucide-react";
@@ -20,34 +20,34 @@ interface HackathonItem {
   slug: string;
 }
 
-const hackathons: HackathonItem[] = [
-  {
-    title: "BatamDev Hackathon",
-    year: "2026",
-    status: "ONGOING",
-    theme: "AI • Security • Systems",
-    slug: "2026",
-  },
-  {
-    title: "BatamDev Hackathon",
-    year: "2025",
-    status: "COMPLETED",
-    theme: "Web • Startup • Automation",
-    slug: "2025",
-  },
-  {
-    title: "Cyber Defense Challenge",
-    year: "2024",
-    status: "COMPLETED",
-    theme: "Red Team • Blue Team",
-    slug: "2024-cyber",
-  },
-];
+// const hackathons: HackathonItem[] = [
+//   {
+//     title: "BatamDev Hackathon",
+//     year: "2026",
+//     status: "ONGOING",
+//     theme: "AI • Security • Systems",
+//     slug: "2026",
+//   },
+//   {
+//     title: "BatamDev Hackathon",
+//     year: "2025",
+//     status: "COMPLETED",
+//     theme: "Web • Startup • Automation",
+//     slug: "2025",
+//   },
+//   {
+//     title: "Cyber Defense Challenge",
+//     year: "2024",
+//     status: "COMPLETED",
+//     theme: "Red Team • Blue Team",
+//     slug: "2024-cyber",
+//   },
+// ];
 
 export default function HackathonArchivePage(): JSX.Element {
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
-      <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
+      <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-26 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ export default function HackathonArchivePage(): JSX.Element {
         </p>
       </section>
 
-      <section className="px-4 max-w-6xl mx-auto">
+      {/* <section className="px-4 max-w-6xl mx-auto">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {hackathons.map((item, i) => (
             <motion.div
@@ -119,7 +119,33 @@ export default function HackathonArchivePage(): JSX.Element {
             </motion.div>
           ))}
         </div>
+      </section> */}
+      <section className="px-4 max-w-3xl mx-auto py-32 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <Rocket className="mx-auto mb-6 w-12 h-12 text-red-500 animate-bounce" />
+
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+            Hackathon Archive Coming Soon
+          </h2>
+
+          <p className="text-gray-400 text-sm md:text-base mb-6">
+            Our past and upcoming hackathons are being curated. Check back soon for a full record of competitions, experiments, and elite builders.
+          </p>
+
+          <Link
+            href="/partner"
+            className="inline-block px-8 py-4 rounded-xl bg-red-600 hover:bg-red-700 font-semibold transition"
+          >
+            Partner With Us
+          </Link>
+        </motion.div>
       </section>
+
 
       <section className="px-4 py-24 md:py-32">
         <motion.div
