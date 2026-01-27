@@ -5,34 +5,44 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "batamdev - Empowering Batam's Tech Community",
-  description: "Kinigo adalah ekosistem teknologi terdepan di Batam...",
+  title: "BatamDev – Empowering Batam's Tech Community",
+  description:
+    "BatamDev is a technology and developer community in Batam focused on collaboration, events, hackathons, and growing digital talent.",
   icons: {
     icon: "/header-logo.png",
     shortcut: "/header-logo.png",
     apple: "/header-logo.png",
   },
-  keywords: [],
+  keywords: [
+    "BatamDev",
+    "Batam Developer Community",
+    "Tech Community Batam",
+    "Hackathon Batam",
+    "Developer Events Batam",
+    "Software Engineers Batam"
+  ],
   openGraph: {
-    title: "kinigo - Menuju Masa Depan",
-    description: "Kinigo adalah ekosistem teknologi terdepan di Batam...",
-    url: "https://kinigo.id",
-    siteName: "Kinigo",
+    title: "BatamDev – Empowering Batam's Tech Community",
+    description:
+      "A developer community in Batam for collaboration, hackathons, workshops, and real-world tech innovation.",
+    url: "https://batamdev.org",
+    siteName: "BatamDev",
     images: [
       {
-        url: "https://kinigo.id/_e632d0d5-adf9-46bd-8b1b-bb358d61e6f7.jpeg",
+        url: "https://batamdev.org/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "kinigo - Menuju Masa Depan",
+        alt: "BatamDev – Empowering Batam's Tech Community",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "kinigo - Menuju Masa Depan",
-    description: "Kinigo adalah ekosistem teknologi terdepan di Batam...",
-    images: ["https://kinigo.id/_e632d0d5-adf9-46bd-8b1b-bb358d61e6f7.jpeg"],
+    title: "BatamDev – Empowering Batam's Tech Community",
+    description:
+      "Connecting developers in Batam through events, hackathons, and technology collaboration.",
+    images: ["https://batamdev.org/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -46,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id">
+    <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-6946744130532669" />
         <Script

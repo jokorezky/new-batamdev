@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Calendar, MapPin, ArrowRight, Mic } from "lucide-react";
+import { Calendar, MapPin, ArrowRight, Mic, CalendarDays } from "lucide-react";
 import { useGetEventsQuery } from "@/hooks/events";
 
 interface HostDetails {
@@ -27,7 +27,7 @@ export default function EventsPage(): JSX.Element {
   const [page] = useState(1);
   const order: "ASC" | "DESC" = "DESC";
 
-  const { data: dataEvents } = useGetEventsQuery(page, 100, order);
+  const { data: dataEvents, loading } = useGetEventsQuery(page, 100, order);
   const now = new Date();
 
   const events: EventItem[] = useMemo(() => {
@@ -65,7 +65,19 @@ export default function EventsPage(): JSX.Element {
     )}`;
   };
 
-
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <motion.div
+          className="text-red-500"
+          animate={{ scale: [1, 1.3, 1] }}
+          transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+        >
+          <CalendarDays className="w-12 h-12" />
+        </motion.div>
+      </div>
+    );
+  }
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
       <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">

@@ -11,7 +11,7 @@ const dicebear = (seed: string) =>
   `https://api.dicebear.com/7.x/personas/png?seed=${encodeURIComponent(seed)}`;
 
 export default function SpeakersPage(): JSX.Element {
-  const { speakers, loading, error } = useSpeakers();
+  const { speakers, loading } = useSpeakers();
 
   if (loading) {
     return (
@@ -23,14 +23,6 @@ export default function SpeakersPage(): JSX.Element {
         >
           <Mic className="w-12 h-12" />
         </motion.div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center text-gray-400">
-        {error}
       </div>
     );
   }
