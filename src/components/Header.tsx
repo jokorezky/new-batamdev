@@ -27,7 +27,7 @@ export function Header() {
         <img
           src="/header-logo.png"
           alt="BatamDev Logo"
-          className="h-8 md:h-10 w-auto cursor-pointer"
+          className="h-8 md:h-10 w-auto cursor-pointer rounded-md"
         />
       </Link>
 
