@@ -127,10 +127,7 @@ export default function CommunityPage({
   };
 
   return (
-    <div className="relative w-full min-h-screen pb-60 pt-0 md:pt-6 
-    bg-[#0B0B0E] text-gray-200 overflow-hidden">
-      
-
+    <div className="relative w-full pb-60 pt-0 md:pt-6 bg-gray-50">
       <ProfileHeader
         isAdmin={isAdmin}
         coverImageUrl={community?.cover}
@@ -150,11 +147,7 @@ export default function CommunityPage({
         sampleMembers={sampleMembers}
         onNavigate={handleNavigate}
       />
-
-      <div className="relative z-10">
-        {renderPage()}
-      </div>
+      {renderPage()}
     </div>
   );
-
 }

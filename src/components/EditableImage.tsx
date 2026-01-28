@@ -71,7 +71,7 @@ export function EditableImage({
       ) : (
         <Avatar className="h-20 w-20 md:h-28 md:w-28 border-4 border-white">
           <AvatarImage src={preview} alt={alt} className="object-cover"/>
-          <AvatarFallback>{alt[0]}</AvatarFallback>
+          {/* <AvatarFallback>{alt[0]}</AvatarFallback> */}
           {loading && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <Loader2 className="w-6 h-6 animate-spin text-white" />

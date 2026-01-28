@@ -105,7 +105,10 @@ export default function EventContentRenderer({
                 {
                   type: "paragraph",
                   content: [
-                    { type: "text", text: "Content format tidak didukung" },
+                    {
+                      type: "text",
+                      text: "Content format is not supported",
+                    },
                   ],
                 },
               ],
@@ -117,7 +120,9 @@ export default function EventContentRenderer({
               content: [
                 {
                   type: "paragraph",
-                  content: [{ type: "text", text: "Error memproses konten" }],
+                  content: [
+                    { type: "text", text: "Error processing content" },
+                  ],
                 },
               ],
             };
@@ -128,24 +133,49 @@ export default function EventContentRenderer({
           StarterKit.configure({
             paragraph: {
               HTMLAttributes: {
-                class: "my-2 leading-relaxed",
+                class:
+                  "my-3 leading-relaxed text-neutral-300 tracking-wide",
               },
             },
             heading: {
               HTMLAttributes: {
-                class: "font-bold my-4",
+                class:
+                  "font-extrabold my-6 text-red-500 tracking-tight",
+              },
+            },
+            blockquote: {
+              HTMLAttributes: {
+                class:
+                  "border-l-4 border-red-600 pl-4 italic text-neutral-400 my-4",
               },
             },
           }),
-          Table.configure({ resizable: true }),
+          Table.configure({
+            HTMLAttributes: {
+              class:
+                "w-full border border-neutral-800 rounded-lg overflow-hidden my-6",
+            },
+            resizable: true,
+          }),
           TableRow,
-          TableHeader,
-          TableCell,
+          TableHeader.configure({
+            HTMLAttributes: {
+              class:
+                "bg-black text-red-500 font-semibold border-b border-red-700",
+            },
+          }),
+          TableCell.configure({
+            HTMLAttributes: {
+              class:
+                "border border-neutral-800 px-4 py-2 text-neutral-300",
+            },
+          }),
         ];
 
         const repairedContent = repairTipTapContent(content);
         const html = generateHTML(repairedContent, extensions);
         const cleanHTML = DOMPurify.sanitize(html);
+
         setRenderedContent(cleanHTML);
       } catch (error) {
         console.error("Error rendering content:", error);
@@ -157,21 +187,27 @@ export default function EventContentRenderer({
   }, [content]);
 
   if (!content) {
-    return <p className="text-gray-500">No content available</p>;
+    return (
+      <p className="text-neutral-500 italic">
+        No content available
+      </p>
+    );
   }
 
   if (!renderedContent) {
     return (
-      <div className="bg-red-50 p-4 rounded-lg border border-red-200">
-        <div className="flex items-center gap-2 text-red-800">
-          <h3 className="font-medium">Content Error</h3>
-        </div>
-        <p className="text-red-600 text-sm mt-1">Error rendering content</p>
-        <details className="mt-2 text-sm">
-          <summary className="cursor-pointer text-red-700">
+      <div className="bg-black border border-red-700 rounded-xl p-5">
+        <h3 className="text-red-500 font-semibold text-sm mb-1">
+          Content Error
+        </h3>
+        <p className="text-red-400 text-xs">
+          Failed to render event content
+        </p>
+        <details className="mt-3 text-xs text-neutral-400">
+          <summary className="cursor-pointer hover:text-red-500">
             Show raw content
           </summary>
-          <pre className="bg-white p-2 mt-1 rounded text-xs overflow-auto max-h-60">
+          <pre className="bg-neutral-900 border border-neutral-800 p-3 mt-2 rounded-lg overflow-auto max-h-60 text-neutral-300">
             {JSON.stringify(content, null, 2)}
           </pre>
         </details>
@@ -181,7 +217,15 @@ export default function EventContentRenderer({
 
   return (
     <div
-      className="prose max-w-none"
+      className="
+        prose prose-invert max-w-none
+        prose-p:text-neutral-300
+        prose-strong:text-red-500
+        prose-a:text-red-500 hover:prose-a:text-red-400
+        prose-code:text-red-400
+        prose-pre:bg-neutral-900
+        prose-pre:border prose-pre:border-neutral-800
+      "
       dangerouslySetInnerHTML={{ __html: renderedContent }}
     />
   );

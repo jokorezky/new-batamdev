@@ -1,40 +1,19 @@
 "use client";
 
 import { FC, useEffect } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { Button } from "@/components/ui/button";
 import IconGoogle from "@/components/icons/Google";
 import Cookies from "js-cookie";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import { useGoogleLogin } from "@react-oauth/google";
-import { Form } from "@/components/Form";
-import {
-  useRegisterMutation,
-  useRegisterGoogleSubmit,
-} from "@/hooks/useRegisterMutation";
+import { useToast } from "@/hooks/use-toast";
+import { useRegisterGoogleSubmit } from "@/hooks/useRegisterMutation";
 import { useDispatch } from "react-redux";
 import { login } from "@/redux/authSlice";
-import {
-  emailSchema,
-  fullnameSchema,
-  passwordSchema,
-} from "@/lib/validationSchemas";
-import { useLoginMutation } from "@/hooks/useLoginMutation";
-
-const registerSchema = z.object({
-  email: emailSchema,
-  full_name: fullnameSchema,
-  password: passwordSchema,
-});
 
 type RegisterFormProps = {
   onRegisterSuccess?: () => void;
   onCloseModal?: () => void;
 };
-
-type RegisterFormInputs = z.infer<typeof registerSchema>;
 
 export const RegisterForm: FC<RegisterFormProps> = ({
   onRegisterSuccess,
@@ -42,22 +21,8 @@ export const RegisterForm: FC<RegisterFormProps> = ({
 }) => {
   const { toast } = useToast();
   const dispatch = useDispatch();
-  const {
-    registerGoogleSubmit,
-    loading: loadingGoogle,
-    error: errorGmail,
-  } = useRegisterGoogleSubmit();
-  const { registerUser, loading } = useRegisterMutation();
-  const { loginUser } = useLoginMutation();
-
-  const form = useForm<RegisterFormInputs>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      full_name: "",
-      email: "",
-      password: "",
-    },
-  });
+  const { registerGoogleSubmit, loading: loadingGoogle, error: errorGmail } =
+    useRegisterGoogleSubmit();
 
   const registerWithGoogle = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -70,9 +35,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({
         if (data) {
           Cookies.set("token", data.token, { expires: 7 });
           dispatch(login());
-          if (onRegisterSuccess) {
-            onRegisterSuccess();
-          }
+          if (onRegisterSuccess) onRegisterSuccess();
           window.location.href = "/";
         }
       } catch (err) {
@@ -87,10 +50,9 @@ export const RegisterForm: FC<RegisterFormProps> = ({
   });
 
   useEffect(() => {
+    if (errorGmail && onCloseModal) onCloseModal();
+
     if (errorGmail) {
-      if (onCloseModal) {
-        onCloseModal();
-      }
       const graphQLError = errorGmail.graphQLErrors?.[0];
       const message =
         graphQLError?.message || "Something went wrong, please try again.";
@@ -103,35 +65,20 @@ export const RegisterForm: FC<RegisterFormProps> = ({
     }
   }, [errorGmail]);
 
-  const onSubmit = async (data: RegisterFormInputs) => {
-    const success = await registerUser(data);
-    if (success) {
-      const response = await loginUser(data.email, data.password);
-      Cookies.set("token", response, { expires: 7 });
-      dispatch(login());
-      window.location.href = "/";
-    }
-  };
-
   return (
-    <Form form={form} onSubmit={onSubmit}>
-      <div className="px-0 lg:px-11">
-        <div className="space-y-8">
-          <p className="text-center text-gray-500">
-            Sign up quickly and securely using your Google account - no need to
-            create a new password.
-          </p>
-          <Button
-            variant="outline"
-            className="w-full uppercase rounded-full text-gray-600 hover:text-gray-800"
-            onClick={() => registerWithGoogle()}
-            disabled={loadingGoogle}
-          >
-            <IconGoogle />
-            {loadingGoogle ? "Connecting..." : "Sign up with Google"}
-          </Button>
-        </div>
-      </div>
-    </Form>
+   <div className="flex flex-col items-center justify-center p-8 bg-gray-900 rounded-2xl shadow-[0_0_25px_rgba(255,0,0,0.4)] space-y-6 w-full max-w-md mx-auto">
+      <p className="text-center text-gray-300 text-sm">
+        Sign up quickly and securely using your Google account – no password required.
+      </p>
+      <Button
+        onClick={() => registerWithGoogle()}
+        variant="outline"
+        className="w-full flex items-center justify-center gap-3 uppercase rounded-full text-white border-red-500 hover:bg-red-600 hover:shadow-[0_0_20px_red] transition-all duration-300"
+        disabled={loadingGoogle}
+      >
+        <IconGoogle />
+        {loadingGoogle ? "Connecting..." : "Sign up with Google"}
+      </Button>
+    </div>
   );
 };

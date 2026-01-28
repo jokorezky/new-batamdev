@@ -2,7 +2,6 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useUpdateCommunity } from "@/hooks/use-community";
 import { Instagram, Linkedin, Globe, Clock } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import { EditableImage } from "./EditableImage";
 import {
   useIsCommunityMember,
   useAddMemberToCommunity,
+  useUpdateCommunity
 } from "@/hooks/use-community";
 import { RootState } from "@/redux/store";
 import { AuthDialog } from "@/components/AuthDialog";
@@ -156,7 +156,7 @@ function MembersList({
   return (
     <div className="flex items-center">
       <div className="flex -space-x-2">
-        {members.map((member, idx) => (
+        {members?.map((member, idx) => (
           <Avatar
             key={`${member._id}-${idx}`}
             className="w-8 h-8 border-2 bg-background"
@@ -309,26 +309,30 @@ export function ProfileHeader({
   const buttonLabel = joinLoading
     ? "Joining..."
     : isMember
-    ? "Joined ✓"
-    : "Join Us";
+      ? "Joined ✓"
+      : "Join Us";
 
   return (
     <>
-      <div className="w-full md:w-3/4 mx-auto">
+      <div className="w-full md:w-4/5 mx-auto relative">
         <EditableImage
           src={coverImageUrl || "/default-cover.jpg"}
           alt="Cover Image"
           onChange={handleCoverChange}
-          className="rounded-none md:rounded-2xl"
           isCover
           isAdmin={isAdmin}
           loading={isCoverUploading}
+          className="rounded-none md:rounded-3xl overflow-hidden"
         />
+
+        <div className="absolute inset-0 bg-gradient-to-t 
+    from-black/80 via-black/40 to-transparent rounded-3xl" />
       </div>
 
-      <div className="w-[calc(66.666%+2rem)] -mt-7 md:-mt-14 mx-4 md:mx-auto flex flex-col items-start">
-        <div className="flex items-center gap-3 w-full justify-between">
-          <div className="flex items-center gap-3 w-full">
+      <div className="w-[calc(66.666%+2rem)] mx-auto -mt-20 relative z-20">
+        <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+
+          <div className="relative">
             <EditableImage
               src={avatarUrl}
               alt={name}
@@ -336,66 +340,33 @@ export function ProfileHeader({
               isAdmin={isAdmin}
               loading={isAvatarUploading}
             />
-            <div className="items-center gap-3 mt-16 hidden md:flex">
-              {telegram && (
-                <Link href={telegram} target="_blank" rel="noopener noreferrer">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
-                  >
-                    <PiTelegramLogo />
-                  </Button>
-                </Link>
-              )}
-              <Button
-                onClick={!isMember ? handleJoin : undefined}
-                disabled={joinLoading || isMember}
-                className={
-                  isMember
-                    ? "bg-muted-foreground text-white font-bold cursor-default"
-                    : "bg-green-600 hover:bg-green-700 text-white font-bold"
-                }
-              >
-                {buttonLabel}
-              </Button>
 
-              <MembersList members={sampleMembers} total={totalMembers} />
-            </div>
           </div>
-          <div className="hidden items-center gap-1 mt-16 md:flex">
-            <NavButtons
-              slug={slug}
-              currentPage={currentPage}
-              onNavigate={onNavigate}
-              isAdmin={isAdmin}
+
+          <div className="flex-1 space-y-2">
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
+              {name}
+            </h1>
+
+            <div className="flex items-center gap-3 text-sm text-gray-400">
+              <Clock className="w-4 h-4 text-red-500" />
+              <span>{location} — {city}</span>
+              <span className="text-red-500 font-mono">{time}</span>
+            </div>
+
+            <SocialLinks
+              instagram={instagram}
+              linkedin={linkedin}
+              website={website}
             />
           </div>
-        </div>
-
-        <div className="space-y-1 mt-2 md:mt-4">
-          <h3 className="text-2xl md:text-4xl font-semibold capitalize">
-            {name}
-          </h3>
-          <div className="flex items-center gap-2 mt-4 text-sm">
-            <Clock className="w-4 h-4" />
-            <p className="text-base">
-              {location} — {city} <span>{time}</span>
-            </p>
-          </div>
-          <SocialLinks
-            instagram={instagram}
-            linkedin={linkedin}
-            website={website}
-          />
-
-          <div className="items-center gap-3 mt-16 pt-4 flex md:hidden">
+          <div className="flex items-center gap-3">
             {telegram && (
-              <Link href={telegram} target="_blank" rel="noopener noreferrer">
+              <Link href={telegram} target="_blank">
                 <Button
-                  variant="outline"
                   size="icon"
-                  className="bg-blue-500 hover:bg-blue-700 text-white"
+                  className="bg-white/5 hover:bg-red-600/20 
+               text-blue-500"
                 >
                   <PiTelegramLogo />
                 </Button>
@@ -407,18 +378,18 @@ export function ProfileHeader({
               disabled={joinLoading || isMember}
               className={
                 isMember
-                  ? "bg-muted-foreground text-white font-bold cursor-default"
-                  : "bg-green-600 hover:bg-green-700 text-white font-bold"
+                  ? "bg-white/10 text-gray-400 cursor-default"
+                  : "bg-red-600 hover:bg-red-700 text-white font-semibold shadow-lg shadow-red-600/30"
               }
             >
               {buttonLabel}
             </Button>
+
             <MembersList members={sampleMembers} total={totalMembers} />
           </div>
         </div>
       </div>
 
-      <Separator className="my-6 bg-gray-100" />
       <div className="items-center gap-1 mb-4 mx-4 flex md:hidden">
         <NavButtons
           slug={slug}

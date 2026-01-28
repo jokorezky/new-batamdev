@@ -1,25 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import JoinButton from "@/components/JoinButton";
 import { EditButton } from "../components/EditButton";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import ImagePreviewClient from "@/components/ImagePreviewClient";
-import { THosts } from "@/types/Events";
 import { formatMemberCount } from "@/lib/formatMemberCount";
-import { ArrowUpRight } from "lucide-react";
-import { CollaboratingCommunityDetails } from "@/types/Events";
+import { ArrowUpRight, Flame } from "lucide-react";
+import { CollaboratingCommunityDetails, THosts } from "@/types/Events";
 import { format } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { id } from "date-fns/locale";
 import SocialLinks from "./SocialLinks";
 import EventContentRenderer from "./EventContentRenderer";
-import { useMediaQuery } from "@/hooks/use-media-query";
 
 interface EventPageProps {
   event: any;
@@ -27,255 +23,247 @@ interface EventPageProps {
 }
 
 export default function EventPage({ event, eventSlug }: EventPageProps) {
-  const [isMobile, setIsMobile] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   const zonedDate = toZonedTime(new Date(event.startDate), "Asia/Jakarta");
   const formattedDate = format(zonedDate, "d MMMM yyyy", { locale: id });
 
   if (!event.is_active) {
     return (
-      <div className="w-full flex items-center justify-center">
-        <div className="max-w-md mx-auto text-center p-6">
-          <div className="bg-background rounded-lg shadow-sm p-8">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <Card className="bg-neutral-950 border border-red-500/20 rounded-2xl p-8 max-w-md w-full">
+          <CardContent className="text-center space-y-4">
+            <h2 className="text-2xl font-bold text-white">
               Event Tidak Tersedia
             </h2>
-            <p className="text-gray-600 mb-6">
-              Event ini saat ini tidak tersedia atau telah dihapus oleh
-              penyelenggara.
+            <p className="text-neutral-400">
+              Event ini tidak tersedia atau telah dihapus.
             </p>
             <Link
               href="/events"
-              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="block w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 transition text-white font-semibold"
             >
               Lihat Event Lainnya
             </Link>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
+  const getFirstName = (fullName?: string) => {
+    if (!fullName) return "";
+    return fullName.trim().split(" ")[0];
+  };
+  const names = event.attendeeDetails
+    ?.map((a: THosts) => getFirstName(a.full_name))
+    .filter(Boolean) as string[];
 
+  const MAX_VISIBLE = 5;
+  const visibleAttendees = event.attendeeDetails.slice(0, MAX_VISIBLE);
+  const visibleNames = names.slice(0, 2);
+  const remainingNamesCount =
+    (event.totalAttendees ?? names.length) - visibleNames.length;
+  const remainingCount =
+    (event.totalAttendees ?? 0) - visibleAttendees.length;
   return (
-    <div className="w-full min-h-screen space-y-5 py-4 bg-gray-50">
-      <div className="w-full max-w-[1440px] mx-auto relative px-4 sm:px-6 lg:px-32">
-        <AspectRatio ratio={isMobile ? 1 : 16 / 7}>
-          <Image
-            src={
-              event.image &&
-              (event.image.includes(
-                "coderjs.s3.ap-southeast-2.amazonaws.com"
-              ) ||
-                event.image.includes(
-                  "properioid.s3.ap-southeast-1.amazonaws.com"
-                ))
-                ? "/no-image.jpg"
-                : event.image || "/no-image.jpg"
-            }
-            alt="Cover Image"
-            fill
-            className="object-cover object-top"
-          />
-          <ImagePreviewClient imageUrl={event.image} />
-        </AspectRatio>
+    <div className="min-h-screen bg-black text-white">
+
+      <div className="relative w-full h-[70vh] min-h-[420px]">
+        <Image
+          src={
+            event.image &&
+              (event.image.includes("coderjs.s3") ||
+                event.image.includes("properioid.s3"))
+              ? "/no-image.jpg"
+              : event.image || "/no-image.jpg"
+          }
+          alt="Event Cover"
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/10" />
+        <ImagePreviewClient imageUrl={event.image} />
+
+        <div className="absolute bottom-10 left-0 right-0 max-w-[1600px] mx-auto px-6 lg:px-28">
+          <p className="text-sm text-red-400 tracking-widest uppercase">
+            {formattedDate} • {event.startTime}
+          </p>
+          <h1 className="mt-2 text-3xl md:text-5xl font-extrabold leading-tight">
+            {event.title}
+          </h1>
+        </div>
       </div>
 
-      <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-32">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-          <div className="order-1 md:order-2 md:col-span-4 md:sticky top-[6rem] h-fit max-h-[calc(100vh-7rem)] overflow-y-auto rounded-none scrollbar-thin scrollbar-thumb-neutral-400 hover:scrollbar-thumb-neutral-500 scrollbar-track-transparent">
-            <Card className="h-full shadow-none border-none rounded-none">
-              <CardContent className="p-4 space-y-1">
-                <div className="flex justify-between items-center">
-                  <Link href={`/${event.community.url}`} className="space-y-2">
-                    <div className="flex items-center space-x-4">
-                      <Avatar className="w-12 h-12 rounded-none">
-                        <AvatarImage
-                          src={event.community?.logo}
-                          alt={event.community?.name}
-                        />
-                        <AvatarFallback>{event.community?.name}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1 space-y-1">
-                        <p className="text-xs font-medium text-muted-foreground leading-none">
-                          Presented by
-                        </p>
-                        <div className="flex items-center gap-1 cursor-pointer">
-                          <p className="text-md font-bold">
-                            {event.community?.name}
-                          </p>
-                          <ArrowUpRight className="h-3 w-3 animate-pulse" />
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                  <p className="flex items-center gap-1 text-sm text-gray-600 font-medium bg-gray-100 px-2 py-1 rounded-none">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-28 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+
+          <main className="md:col-span-8">
+            <EditButton
+              userId={event.community.admins}
+              href={`/events/${eventSlug}/edit`}
+              className="mb-6"
+            />
+
+            <Card className="bg-neutral-950 border border-white/10 rounded-3xl">
+              <CardContent className="p-8 md:p-10">
+                <EventContentRenderer content={event.content} />
+              </CardContent>
+            </Card>
+          </main>
+
+          <aside className="md:col-span-4 md:sticky md:top-36 h-fit">
+            <Card className="relative bg-neutral-950 border border-red-500/20 rounded-3xl overflow-hidden">
+
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-transparent pointer-events-none" />
+
+              <CardContent className="relative p-6 space-y-3">
+
+                <Link
+                  href={`/${event.community.url}`}
+                  className="flex items-center gap-4"
+                >
+                  <Avatar className="w-14 h-14 ring-2 ring-red-500/40">
+                    <AvatarImage src={event.community?.logo} />
+                    <AvatarFallback>{event.community?.name}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-xs text-neutral-400">Presented by</p>
+                    <p className="font-bold flex items-center gap-1">
+                      {event.community?.name}
+                      <ArrowUpRight className="w-4 h-4 text-red-400" />
+                    </p>
+                  </div>
+                </Link>
+
+                <Separator className="bg-white/10" />
+
+                <div className="flex justify-between text-sm text-neutral-400">
+                  <span>Members</span>
+                  <span className="text-white font-medium">
                     {formatMemberCount(event.community.countMembers)}
-                  </p>
+                  </span>
                 </div>
-                <div className="prose prose-sm sm:prose lg:prose-lg max-w-none text-gray-800 w-full py-4">
-                  <p>
-                    {formattedDate} - {event.startTime}
+
+                <SocialLinks {...event.community} />
+
+                <div>
+                  <p className="flex items-center gap-2 text-sm font-semibold text-red-400">
+                    <Flame className="w-4 h-4 flex-shrink-0 translate-y-[0.5px]" />
+                    <span className="leading-none tracking-wide mt-1">Guided By</span>
                   </p>
-                  <p className="font-bold">{event.title}</p>
-                </div>
-                <SocialLinks
-                  instagram={event.community.instagram}
-                  linkedin={event.community.linkedin}
-                  website={event.community.website}
-                  telegram={event.community.telegram}
-                  whatsapp={event.community.whatsapp}
-                />
-                <p className="font-bold text-sm text-gray-600 pt-4">
-                  Guided By
-                </p>
-                <Separator className="my-2 bg-gray-100" />
-                <div className="space-y-1 pt-2 pb-5">
-                  {event.hostDetails?.map((host: any) => (
-                    <div key={host._id}>
+                  <Separator className="my-3 bg-white/10" />
+                  <div className="space-y-3">
+                    {event.hostDetails?.map((host: any) => (
                       <Link
+                        key={host._id}
                         href={`/p/${host.username}`}
-                        prefetch={false}
-                        className="cursor-pointer flex items-center gap-3"
+                        className="flex items-center gap-3 hover:translate-x-1 transition"
                       >
-                        <Avatar className="w-7 h-7">
-                          <AvatarImage
-                            src={
-                              host.picture ||
-                              `https://api.dicebear.com/6.x/initials/svg?seed=${encodeURIComponent(
-                                host.full_name
-                              )}`
-                            }
-                            alt={host.full_name}
-                          />
-                          <AvatarFallback>
-                            {host.full_name?.charAt(0)}
-                          </AvatarFallback>
+                        <Avatar className="w-8 h-8 ring-1 ring-white/20">
+                          <AvatarImage src={host.picture} />
+                          <AvatarFallback>{host.full_name?.[0]}</AvatarFallback>
                         </Avatar>
-                        <p className="font-bold text-sm">{host.full_name}</p>
+                        <p className="text-sm font-medium">{host.full_name}</p>
                       </Link>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
+
                 {event.totalAttendees !== 0 && (
-                  <p className="font-bold mt-6 text-sm text-gray-600">
-                    {event.totalAttendees} Going
-                  </p>
-                )}
-                <Separator className="my-2 bg-gray-100" />
-                {event.collaboratingCommunityDetails.length > 0 && (
-                  <p className="font-bold text-sm text-gray-600 pt-2">
-                    Collaboration With
+                  <p className="text-sm text-neutral-300">
+                    {event.totalAttendees} People Going
                   </p>
                 )}
 
-                {event.collaboratingCommunityDetails.map(
-                  (colWith: CollaboratingCommunityDetails) => (
-                    <div
-                      key={colWith.name}
-                      className="flex justify-between items-center"
-                    >
-                      <Link href={`/${colWith.url}`} className="space-y-2">
-                        <div className="flex items-center space-x-4">
-                          <Avatar className="w-12 h-12 rounded-none">
-                            <AvatarImage
-                              src={colWith?.logo}
-                              alt={colWith?.name}
-                            />
-                            <AvatarFallback>{colWith?.name}</AvatarFallback>
-                          </Avatar>
-                          <div className="flex-1 space-y-1">
-                            <div className="flex items-center gap-1 cursor-pointer">
-                              <p className="text-md font-bold">
-                                {colWith?.name}
-                              </p>
-                              <ArrowUpRight className="h-3 w-3 animate-pulse" />
+                {event.collaboratingCommunityDetails.length > 0 && (
+                  <>
+                    <Separator className="bg-white/10" />
+                    <p className="text-sm font-semibold text-red-400">
+                      Collaboration With
+                    </p>
+                    <div className="space-y-3">
+                      {event.collaboratingCommunityDetails.map(
+                        (col: CollaboratingCommunityDetails) => (
+                          <Link
+                            key={col.name}
+                            href={`/${col.url}`}
+                            className="flex items-center justify-between rounded-xl p-2 hover:bg-white/5 transition"
+                          >
+                            <div className="flex items-center gap-3">
+                              <Avatar className="w-9 h-9 ring-1 ring-red-500/30">
+                                <AvatarImage src={col.logo} />
+                                <AvatarFallback>{col.name}</AvatarFallback>
+                              </Avatar>
+                              <p className="text-sm font-medium">{col.name}</p>
                             </div>
-                          </div>
-                        </div>
-                      </Link>
-                      <p className="flex items-center gap-1 text-sm text-gray-600 font-medium bg-gray-100 px-2 py-1 rounded-none">
-                        {formatMemberCount(colWith.countMembers)}
-                      </p>
+                            <span className="text-xs text-neutral-400">
+                              {formatMemberCount(col.countMembers)}
+                            </span>
+                          </Link>
+                        )
+                      )}
                     </div>
-                  )
+                  </>
                 )}
-                <Separator className="my-2 bg-gray-100" />
-                <div className="flex -space-x-3 pt-1">
-                  {event?.attendeeDetails.map((attendeence: THosts) => (
-                    <Avatar key={attendeence.username}>
-                      <AvatarImage
-                        src={
-                          attendeence.picture ||
-                          `https://api.dicebear.com/6.x/initials/svg?seed=${encodeURIComponent(
-                            attendeence.full_name || attendeence.username
-                          )}`
-                        }
-                        alt={attendeence.full_name}
-                      />
-                      <AvatarFallback>{attendeence.full_name}</AvatarFallback>
-                    </Avatar>
-                  ))}
-                  {event.totalAttendees > 5 && (
-                    <Avatar>
-                      <AvatarFallback>
-                        {event.totalAttendees > 5
-                          ? `+${event.totalAttendees - 5}`
-                          : null}
-                      </AvatarFallback>
-                    </Avatar>
-                  )}
-                </div>
-                {!event?.useRegistrationLink && (
-                  <p className="text-xs text-gray-700">
-                    {(() => {
-                      const attendees = event?.attendeeDetails || [];
-                      if (attendees.length === 0) return "Wait attendees";
-                      if (attendees.length === 1) return attendees[0].full_name;
-                      if (attendees.length === 2)
-                        return `${attendees[0].full_name} and ${attendees[1].full_name}`;
-                      return `${attendees[0].full_name}, ${
-                        attendees[1].full_name
-                      } and ${event.totalAttendees - 2} others`;
-                    })()}
+
+                <div className="pt-3">
+                  <div className="flex items-center -space-x-3">
+                    {event.attendeeDetails.map((a: THosts) => (
+                      <Avatar
+                        key={a.username}
+                        className="ring-2 ring-red-600 bg-black"
+                      >
+                        <AvatarImage src={a.picture} />
+                        <AvatarFallback className="bg-black text-red-500">
+                          {a.full_name?.[0]}
+                        </AvatarFallback>
+                      </Avatar>
+                    ))}
+
+                    {remainingCount > 0 && (
+                      <div
+                        className="
+                          flex h-10 w-10 items-center justify-center rounded-full
+                          bg-black border border-red-600
+                          text-xs font-bold text-red-500
+                          shadow-[0_0_12px_rgba(239,68,68,0.6)]
+                        "
+                      >
+                        +{remainingCount}
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="mt-2 text-xs text-neutral-400 tracking-wide">
+                    <span className="capitalize">{visibleNames.join(", ")}</span>
+                    {remainingNamesCount > 0 && (
+                      <>
+                        {" "}
+                        <span className="text-red-500 font-medium">
+                          and {remainingNamesCount} others
+                        </span>
+                      </>
+                    )}{" "}
+                    are attending
                   </p>
-                )}
+                </div>
+
+
               </CardContent>
-              {!event?.useRegistrationLink && (
-                <CardFooter className="flex flex-col p-4 border-t border-gray-100 space-y-4">
+
+              {!event.useRegistrationLink && (
+                <CardFooter className="w-full flex flex-col gap-3 p-6 pt-0">
                   <JoinButton {...event} eventSlug={eventSlug} />
                   <Link
-                    href={`/${event.community.url}`}
-                    className="w-full py-3 font-semibold hover:scale-[1.02] transition-all duration-300 text-center cursor-pointer hover:underline"
+                    href="/events"
+                    className="block text-center text-sm text-neutral-400 hover:text-red-400 transition"
                   >
                     Lihat Semua Events
                   </Link>
                 </CardFooter>
               )}
             </Card>
-          </div>
-
-          <div className="order-2 md:order-1 md:col-span-8 bg-white p-6 shadow-sm">
-            <EditButton
-              userId={event?.community.admins}
-              className="mb-4"
-              href={`/events/${eventSlug}/edit`}
-            />
-            <div className="min-h-[200px] border-2 border-dashed border-gray-300 p-4 flex md:items-center md:justify-center">
-              <div className="w-full overflow-hidden break-words">
-                <EventContentRenderer content={event.content} />
-              </div>
-            </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
