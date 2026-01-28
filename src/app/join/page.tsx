@@ -6,10 +6,10 @@ import Link from "next/link";
 
 export default function JoinPage(): JSX.Element {
   return (
-    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-red-900/30 via-black to-black" />
-      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-red-600/20 blur-[120px] rounded-full" />
-      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-orange-500/10 blur-[120px] rounded-full" />
+    <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 overflow-x-hidden overflow-y-auto relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-red-900/30 via-black to-black pointer-events-none" />
+      <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-red-600/20 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-orange-500/10 blur-[120px] rounded-full pointer-events-none" />
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
