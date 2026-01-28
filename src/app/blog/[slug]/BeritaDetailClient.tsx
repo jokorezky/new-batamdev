@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import TopWidgetDetailWithProfile from "@/components/TopWidgetDetailWithProfile";
 import DetailLayout from "@/components/DetailLayout";
-import FloatingShareButton from "@/components/FloatingShareButtons";
 
 interface BeritaDetailClientProps {
   news: any;
@@ -25,15 +24,12 @@ export default function BeritaDetailClient({ news }: BeritaDetailClientProps) {
   }, []);
 
   return (
-    <div>
+    <div className="relative px-4 pt-20 pb-28 md:pt-32 md:pb-30">
       <div ref={topWidgetRef}>
         <TopWidgetDetailWithProfile data={news} />
       </div>
       <div className="mt-0">
         <DetailLayout data={news} />
-      </div>
-      <div className="hidden lg:block">
-        {isFloatingVisible && <FloatingShareButton />}
       </div>
     </div>
   );

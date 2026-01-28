@@ -127,25 +127,6 @@ const DetailLayout: React.FC<DataDetail> = ({ data }) => {
             </div>
           </Alert>
         )}
-        <div className="w-full mt-8">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Recommended reads
-          </h3>
-          <div className="flex flex-col space-y-3">
-            {mostPopularNews.map((item) => (
-              <Link
-                key={item._id}
-                href={`/${item?.url}`}
-                className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300 bg-white"
-              >
-                <p className="text-gray-900 font-medium">{item.title}</p>
-                <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center bg-gray-100 rounded-full">
-                  <RocketIcon className="w-4 h-4 text-gray-600" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
 
       </div>
     </div>

@@ -90,8 +90,7 @@ export function ProfileWithArticles({ user }: { user: User }) {
               <IconLink icon={<Mail />} url={prof.email ? `mailto:${prof.email}` : "#"} />
             </div>
           </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="space-y-4">
+          {news.length > 0 && <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="space-y-4">
             <h2 className="text-xl font-semibold text-red-400 mb-4">Latest Insights</h2>
             {news.length ? news.map((article) => (
               <Card key={article._id} className="bg-black/60 border border-red-600/30 backdrop-blur-xl p-4 hover:border-red-500 transition">
@@ -102,8 +101,7 @@ export function ProfileWithArticles({ user }: { user: User }) {
                 <p className="text-xs text-zinc-500 mt-1">{format(new Date(article.createdAt), "h:mm a - MMMM d, yyyy", { locale: id })}</p>
               </Card>
             )) : <p className="text-zinc-400 italic">Belum ada artikel</p>}
-          </motion.div>
-
+          </motion.div>}
         </div>
       </section>
     </main>

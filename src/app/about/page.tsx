@@ -16,7 +16,6 @@ export default function AboutPage(): JSX.Element {
   return (
     <main className="min-h-screen bg-black text-white overflow-x-hidden">
 
-      {/* HERO */}
       <section className="relative px-4 pt-36 pb-28 md:pt-44 md:pb-36 text-center
         bg-gradient-to-b from-black via-red-900/40 to-black"
       >
