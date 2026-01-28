@@ -114,7 +114,7 @@ export default function SpeakersPage(): JSX.Element {
                       )}
                     </div>
 
-                    <Link href={`/speakers/${slug}`}>
+                    <Link href={`/p/${slug}`}>
                       <Button
                         size="sm"
                         className="rounded-xl bg-red-600 hover:bg-red-700"

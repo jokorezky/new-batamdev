@@ -1,166 +1,124 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Globe } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { User } from "@/types/User";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useGetNewsByUserSlug } from "@/hooks/useNewsMutation";
+import { Linkedin, Globe, Mail, Mic } from "lucide-react";
 
-export function ProfileWithArticles(user: any) {
-  const prof: User = user.user;
-  const { news } = useGetNewsByUserSlug(user.user.username, 1, 10);
+export function ProfileWithArticles({ user }: { user: User }) {
+  const prof: User = user;
+  const { news } = useGetNewsByUserSlug(prof.username, 1, 10);
 
-  function cleanText(htmlText: string, maxLength = 150) {
-    let cleanText = htmlText.replace(/<[^>]*>/g, " ");
+  const cleanText = (htmlText: string, maxLength = 150) => {
+    if (!htmlText) return "";
+    let text = htmlText.replace(/<[^>]*>/g, " ");
+    text = text.replace(/kinigo\.id\s*-\s*/g, "");
+    text = text.replace(/\s+/g, " ").trim();
+    if (text.length > maxLength) text = text.substring(0, maxLength) + "...";
+    return text;
+  };
 
-    cleanText = cleanText.replace(/kinigo\.id\s*-\s*/g, "");
-
-    cleanText = cleanText.replace(/\s+/g, " ").trim();
-
-    if (cleanText.length > maxLength) {
-      cleanText = cleanText.substring(0, maxLength) + "...";
-    }
-    return cleanText;
-  }
   return (
-    <div className="container mx-auto py-2">
-      <div className="flex flex-col gap-8 lg:flex-row">
-        <div className="w-full lg:w-1/3">
-          <Card className="sticky top-3 overflow-hidden shadow-sm">
-            <div className="relative h-28 bg-gradient-to-r from-green-600 to-green-700">
-              <div className="absolute -bottom-16 left-1/2 -translate-x-1/2">
-                <div className="relative">
-                  <Avatar className="h-32 w-32 border-4 border-white shadow-lg rounded-full">
-                    <AvatarImage src={prof.picture} className="object-cover" />
-                    <AvatarFallback className="bg-gradient-to-r from-green-500 to-green-600 text-3xl font-bold text-white">
-                      {prof.full_name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </AvatarFallback>
-                  </Avatar>
-                </div>
+    <main className="min-h-screen bg-black text-white px-4 py-12 md:py-16">
+      <section className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 items-start">
+
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="md:sticky md:top-32">
+          <Card className="bg-black/60 border border-red-600/40 backdrop-blur-xl rounded-3xl">
+            <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+              <Image
+                src={prof.picture || "https://i.pravatar.cc/300"}
+                alt={prof.full_name || "User"}
+                width={150}
+                height={150}
+                className="rounded-full border-4 border-red-500 object-cover"
+              />
+              <h1 className="text-2xl font-bold text-red-400">{prof.full_name || "Nama User"}</h1>
+              <p className="text-sm text-zinc-400">{prof.bio || "Bio belum tersedia"}</p>
+
+              <div className="flex flex-wrap gap-2 justify-center mt-2">
+                <Badge className="bg-red-600/20 text-red-400 border-red-600/40">Verified</Badge>
               </div>
+              <div className="flex gap-4 mt-4">
+                <IconLink icon={<Linkedin />} url={prof.linkedin ? `https://linkedin.com/in/${prof.linkedin}` : "#"} />
+                <IconLink icon={<Globe />} url={prof.website || "#"} />
+                <IconLink icon={<Mail />} url={prof.email ? `mailto:${prof.email}` : "#"} />
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <div className="md:col-span-2 space-y-6 md:pr-2">
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-black/60 border border-red-600/30 rounded-3xl p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-red-400 mb-2">Speaker Overview</h2>
+            <p className="text-zinc-300 text-sm leading-relaxed">Deskripsi belum tersedia.</p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="bg-black/60 border border-red-600/30 rounded-3xl p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-red-400 mb-4">Expertise Areas</h2>
+            <div className="flex flex-wrap gap-2">
+              <p className="text-zinc-400 text-sm">Belum ada data</p>
             </div>
+          </motion.div>
 
-            <CardHeader className="pt-20 text-center">
-              <CardTitle className="text-2xl font-bold text-gray-800">
-                {prof.full_name}
-              </CardTitle>
-              <p className="text-muted-foreground">@{prof.username}</p>
-            </CardHeader>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-black/60 border border-red-600/30 rounded-3xl p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-red-400 mb-4">Talks & Sessions</h2>
+            <div className="space-y-4">
+              <p className="text-zinc-400 text-sm italic">Belum ada sesi</p>
+            </div>
+          </motion.div>
 
-            <CardContent className="space-y-2">
-              <p className="text-gray-600">{prof.bio}</p>
-              <div className="space-y-2">
-                {/* <div className="flex items-start gap-4">
-                                    <Mail className="mt-1 h-5 w-5 text-gray-400" />
-                                    <div>
-                                        <p className="text-sm text-gray-500">Email</p>
-                                        <a href={`mailto:${prof.email}`} className="text-gray-700 hover:text-blue-600 hover:underline">
-                                            {prof.email}
-                                        </a>
-                                    </div>
-                                </div> */}
-                {prof.linkedin && (
-                  <div className="flex items-start gap-4">
-                    <Globe className="mt-1 h-5 w-5 text-gray-400" />
-                    <div>
-                      <p className="text-sm text-gray-500">Linkedin</p>
-                      <a
-                        href={`https://id.linkedin.com/${prof.linkedin}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
-                      >
-                        {prof.username}
-                      </a>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="bg-black/60 border border-red-600/30 rounded-3xl p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-red-400 mb-4">Availability & Format</h2>
+            <div className="grid sm:grid-cols-2 gap-4 text-sm text-zinc-300">
+              <p className="text-zinc-400 text-sm italic">Belum ada data</p>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bg-black/60 border border-red-600/30 rounded-3xl p-6 backdrop-blur-xl">
+            <h2 className="text-xl font-semibold text-red-400 mb-4">Connect</h2>
+            <div className="flex gap-4">
+              <IconLink icon={<Linkedin />} url={prof.linkedin ? `https://linkedin.com/in/${prof.linkedin}` : "#"} />
+              <IconLink icon={<Globe />} url={prof.website || "#"} />
+              <IconLink icon={<Mail />} url={prof.email ? `mailto:${prof.email}` : "#"} />
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="space-y-4">
+            <h2 className="text-xl font-semibold text-red-400 mb-4">Latest Insights</h2>
+            {news.length ? news.map((article) => (
+              <Card key={article._id} className="bg-black/60 border border-red-600/30 backdrop-blur-xl p-4 hover:border-red-500 transition">
+                <h3 className="text-red-400 font-semibold text-lg hover:underline">
+                  <Link href={`/${article.url}`}>{article.title}</Link>
+                </h3>
+                <p className="text-zinc-300 text-sm">{cleanText(article.content, 150)}</p>
+                <p className="text-xs text-zinc-500 mt-1">{format(new Date(article.createdAt), "h:mm a - MMMM d, yyyy", { locale: id })}</p>
+              </Card>
+            )) : <p className="text-zinc-400 italic">Belum ada artikel</p>}
+          </motion.div>
+
         </div>
+      </section>
+    </main>
+  );
+}
 
-        <div className="w-full lg:w-2/3">
-          <Card className="shadow-none border-none backdrop-blur-lg">
-            <CardHeader>
-              <CardTitle className="text-xl font-semibold tracking-wide">
-                🚀 Latest Insights
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {news.length === 0 ? (
-                <div className="text-center py-10 text-gray-500 italic">
-                  ✨ <span className="font-semibold">{prof.full_name} </span>
-                  belum membagikan artikel — tunggu kejutan inspirasinya! 🚀
-                </div>
-              ) : (
-                news.map((article) => (
-                  <article
-                    key={article._id}
-                    className="group cursor-pointer rounded-xl border border-gray-100 hover:border-green-500/40 hover:shadow-xl transition duration-300 bg-white/80 backdrop-blur-md p-5 space-y-3"
-                  >
-                    <div className="flex items-center space-x-2 text-sm text-gray-500">
-                      <span>
-                        {format(
-                          new Date(article.createdAt),
-                          "h:mm a - MMMM d, yyyy",
-                          {
-                            locale: id,
-                          }
-                        )}
-                      </span>
-                      <span>•</span>
-                      <span>{article.category}</span>
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold text-gray-800 group-hover:text-green-700 transition">
-                      <Link
-                        href={`/${article.url}`}
-                        className="hover:underline"
-                      >
-                        {article.title}
-                      </Link>
-                    </h3>
-                    <p className="text-gray-600">
-                      {cleanText(article.content, 170)}
-                    </p>
-                    <div>
-                      <Link
-                        href={`/${article.url}`}
-                        className="inline-flex items-center gap-1 text-sm font-medium text-green-600 hover:text-green-800 transition"
-                      >
-                        Selengkapnya
-                        <svg
-                          className="h-4 w-4"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </Link>
-                    </div>
-                  </article>
-                ))
-              )}
-            </CardContent>
-
-            {/* <CardFooter className="border-t p-4">
-                            <Button variant="outline" className="w-full hover:bg-blue-50 hover:border-blue-500 transition">
-                                View All Articles
-                            </Button>
-                        </CardFooter> */}
-          </Card>
-        </div>
-      </div>
-    </div>
+function IconLink({ icon, url }: { icon: React.ReactNode; url: string }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="p-3 rounded-full border border-red-600/40 text-red-400 hover:bg-red-600/20 hover:scale-110 transition"
+    >
+      {icon}
+    </a>
   );
 }

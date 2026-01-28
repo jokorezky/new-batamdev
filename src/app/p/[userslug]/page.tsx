@@ -46,7 +46,7 @@ export default async function ProfilePage({ params }: any) {
   if (!user) return notFound();
 
   return (
-    <div className="w-full px-4 md:px-32 py-2 pt-4 max-w-[1440px] mx-auto relative">
+    <div className="w-full px-4 md:px-32 py-2 pt-20 max-w-[1440px] mx-auto relative">
       <ProfileWithArticles user={user} />
     </div>
   );

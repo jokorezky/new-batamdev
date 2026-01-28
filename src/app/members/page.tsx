@@ -9,9 +9,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useListUsers } from "@/hooks/use-user";
 
-/* =======================
-   Types
-======================= */
 interface User {
   _id: string;
   username: string;
@@ -21,9 +18,6 @@ interface User {
   isCoreTeam?: boolean;
 }
 
-/* =======================
-   Framer Motion
-======================= */
 const container = {
   hidden: {},
   show: {
@@ -39,9 +33,6 @@ const item = {
 };
 
 export default function MembersPage(): JSX.Element {
-  /* =======================
-     Pagination State
-  ======================= */
   const LIMIT = 24;
   const [page, setPage] = useState<number>(1);
   const [users, setUsers] = useState<User[]>([]);
@@ -116,8 +107,6 @@ export default function MembersPage(): JSX.Element {
           Designers, engineers, mentors, hackers, founders, and builders shaping the future of technology.
         </p>
       </section>
-
-      {/* GRID */}
       <section className="max-w-6xl mx-auto">
         <motion.div
           variants={container}
@@ -127,7 +116,7 @@ export default function MembersPage(): JSX.Element {
         >
           {users.map((user) => (
             <motion.div key={user._id} variants={item}>
-              <Link href={`/${user.username}`}>
+              <Link href={`/p/${user.username}`}>
                 <Card
                   className="group relative bg-white/5 backdrop-blur-xl
                   border border-white/10 rounded-3xl
@@ -175,8 +164,6 @@ export default function MembersPage(): JSX.Element {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* LOADER / END */}
         <div ref={loadMoreRef} className="h-20 flex items-center justify-center">
           {loading && (
             <span className="text-zinc-500 text-sm animate-pulse">
@@ -191,8 +178,6 @@ export default function MembersPage(): JSX.Element {
           )}
         </div>
       </section>
-
-      {/* CTA */}
       <section className="mt-24 text-center">
         <Button
           size="lg"

@@ -17,6 +17,7 @@ interface Event {
   date: string;
   description?: string;
   endTime?: string;
+  slugname?: string;
 }
 
 export default function FuturisticCommunityLanding(): JSX.Element {
@@ -40,6 +41,7 @@ export default function FuturisticCommunityLanding(): JSX.Element {
     }),
     description: e.content || undefined,
     endTime: e.endTime || undefined,
+    slugname: e.slugname,
   })) || [];
 
   const now = new Date();
@@ -181,27 +183,28 @@ export default function FuturisticCommunityLanding(): JSX.Element {
         <div className="grid md:grid-cols-2 gap-6 md:gap-10 max-w-6xl mx-auto">
           {upcomingEvents.length > 0 ? (
             upcomingEvents.map((event, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: i * 0.15, type: "spring", stiffness: 120 }}
-                className="relative group bg-black/40 border border-red-600/40 rounded-3xl p-6 md:p-8 backdrop-blur-xl hover:scale-105 hover:shadow-[0_0_30px_rgba(255,0,0,0.5)] hover:border-red-500 transition-all duration-500 cursor-pointer"
-              >
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-red-500/50 via-pink-500/30 to-red-600/50 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500 z-0"></div>
+              <Link href={`/events/${event.slugname}`} key={i}>
+                <motion.div
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: i * 0.15, type: "spring", stiffness: 120 }}
+                  className="relative group bg-black/40 border border-red-600/40 rounded-3xl p-6 md:p-8 backdrop-blur-xl hover:scale-105 hover:shadow-[0_0_30px_rgba(255,0,0,0.5)] hover:border-red-500 transition-all duration-500 cursor-pointer"
+                >
+                  <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-red-500/50 via-pink-500/30 to-red-600/50 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500 z-0"></div>
 
-                <h3 className="relative text-xl md:text-2xl font-bold mb-2 text-red-400 group-hover:text-red-500 drop-shadow-md z-10">
-                  {event.title}
-                </h3>
-                <p className="relative text-gray-400 mb-2 text-sm md:text-base z-10">
-                  {event.date}
-                </p>
-                {event.description && (
-                  <p className="relative text-gray-300 text-sm md:text-base z-10">
-                    {event.description}
+                  <h3 className="relative text-xl md:text-2xl font-bold mb-2 text-red-400 group-hover:text-red-500 drop-shadow-md z-10">
+                    {event.title}
+                  </h3>
+                  <p className="relative text-gray-400 mb-2 text-sm md:text-base z-10">
+                    {event.date}
                   </p>
-                )}
-              </motion.div>
+                  {event.description && (
+                    <p className="relative text-gray-300 text-sm md:text-base z-10">
+                      {event.description}
+                    </p>
+                  )}
+                </motion.div>
+              </Link>
             ))
           ) : (
             <motion.div
@@ -305,22 +308,22 @@ export default function FuturisticCommunityLanding(): JSX.Element {
         <div className="grid md:grid-cols-3 gap-6 md:gap-10 max-w-6xl mx-auto">
           {pastEvents.length > 0 ? (
             pastEvents.map((event, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: i * 0.15, type: "spring", stiffness: 120 }}
-                className="relative group bg-black/40 border border-red-600/40 rounded-3xl p-6 md:p-8 backdrop-blur-xl hover:scale-105 hover:shadow-[0_0_30px_rgba(255,0,0,0.5)] hover:border-red-500 transition-all duration-500 cursor-pointer"
-              >
-                <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-red-600/50 via-pink-500/30 to-red-600/50 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500 z-0"></div>
-
-                <h3 className="relative text-xl md:text-2xl font-bold mb-2 text-red-400 group-hover:text-red-500 drop-shadow-md z-10">
-                  {event.title}
-                </h3>
-                <p className="relative text-gray-400 text-sm md:text-base z-10">
-                  {event.date}
-                </p>
-              </motion.div>
+              <Link href={`/events/${event.slugname}`} key={i}>
+                <motion.div
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: i * 0.15, type: "spring", stiffness: 120 }}
+                  className="relative group bg-black/40 border border-red-600/40 rounded-3xl p-6 md:p-8 backdrop-blur-xl hover:scale-105 hover:shadow-[0_0_30px_rgba(255,0,0,0.5)] hover:border-red-500 transition-all duration-500 cursor-pointer"
+                >
+                  <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-red-600/50 via-pink-500/30 to-red-600/50 opacity-0 group-hover:opacity-100 blur-2xl transition-all duration-500 z-0"></div>
+                  <h3 className="relative text-xl md:text-2xl font-bold mb-2 text-red-400 group-hover:text-red-500 drop-shadow-md z-10">
+                    {event.title}
+                  </h3>
+                  <p className="relative text-gray-400 text-sm md:text-base z-10">
+                    {event.date}
+                  </p>
+                </motion.div>
+              </Link>
             ))
           ) : (
             <motion.p
