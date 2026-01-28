@@ -18,7 +18,8 @@ async function resolveParams(
 
 async function fetchNewsData(slug: string) {
   try {
-    const url = `${urlEndpoint}/news/${slug}`;
+    const url = `${urlEndpoint}/news/blog/${slug}`;
+    console.log("url", url)
     const res = await fetch(url, { next: { revalidate: 60 } });
     if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
     return await res.json();
@@ -40,7 +41,7 @@ export async function generateMetadata(props: any): Promise<Metadata> {
   }
 
   const processedContent = stripHtmlAndTruncate(news.content, 200);
-  const url = `https://kinigo.id/${news.url}`;
+  const url = `https://batamdev.org/${news.url}`;
   return {
     title: news.title,
     description: processedContent,
