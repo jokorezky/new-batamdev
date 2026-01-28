@@ -67,10 +67,10 @@ const institutionalPartners: Partner[] = [
     },
     {
         id: "i4",
-        name: "solnet",
-        logo: "/solnet-logo.webp",
+        name: "Omni Data Center",
+        logo: "/LOGO-OMNI-DATA-CENTER-e1749719039187.png",
         highlight: "Venue & Official Partner",
-        url: "https://solnet.net.id",
+        url: "https://omnidc.co.id",
     },
     {
         id: "i4",
