@@ -40,7 +40,7 @@ export default function SpeakersPage(): JSX.Element {
             bg-clip-text text-transparent
           "
         >
-          Speakers
+          Speakers & Mentors
         </motion.h1>
 
         <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-sm md:text-lg">
