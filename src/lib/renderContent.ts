@@ -150,7 +150,6 @@ export const renderContentToString = (content: any): string => {
   }
 };
 
-// Fungsi yang sudah ada tetap dipertahankan
 export const renderContent = (content: any) => {
   const htmlString = renderContentToString(content);
   return { __html: htmlString };

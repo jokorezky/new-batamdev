@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRoadmap } from "@/hooks/use-roadmap";
 import {
   CheckCircle,
   Clock,
@@ -30,99 +31,41 @@ interface Quarter {
   items: RoadmapItem[];
 }
 
-const ROADMAP_2026: Quarter[] = [
-  {
-    quarter: "Q1 2026",
-    focus: "Foundation & Activation",
-    kpi: "3 Events • 150 Active Members",
-    progress: 100,
-    items: [
-      {
-        title: "Website Revamp & Roadmap Publish",
-        desc: "Official roadmap & community positioning.",
-        status: "done",
-        link: "/about",
-      },
-      {
-        title: "Expo / Web Learning Session",
-        desc: "Hands-on learning for beginners & builders.",
-        status: "done",
-        link: "/events",
-      },
-      {
-        title: "Community Core Team Setup",
-        desc: "Define roles, SOP, and execution flow.",
-        status: "done",
-      },
-    ],
-  },
-  {
-    quarter: "Q2 2026",
-    focus: "Execution & Visibility",
-    kpi: "4 Events • 250 Members",
-    progress: 60,
-    items: [
-      {
-        title: "Monthly Technical Meetup",
-        desc: "Consistent offline & online sessions.",
-        status: "progress",
-      },
-      {
-        title: "Mini Hackathon",
-        desc: "Small-scale real problem challenge.",
-        status: "progress",
-      },
-      {
-        title: "Partner Outreach",
-        desc: "Campus & company collaboration.",
-        status: "planned",
-        votes: { up: 21, down: 3 },
-      },
-    ],
-  },
-  {
-    quarter: "Q3 2026",
-    focus: "Scale & Impact",
-    kpi: "1 Major Hackathon • 400 Members",
-    progress: 20,
-    items: [
-      {
-        title: "BatamDev Hackathon",
-        desc: "Flagship competitive event.",
-        status: "planned",
-        votes: { up: 34, down: 6 },
-      },
-      {
-        title: "Open Source Project Launch",
-        desc: "Community-driven real project.",
-        status: "planned",
-        votes: { up: 28, down: 4 },
-      },
-    ],
-  },
-  {
-    quarter: "Q4 2026",
-    focus: "Sustainability",
-    kpi: "Financial Independence",
-    progress: 0,
-    items: [
-      {
-        title: "Sponsor Program",
-        desc: "Long-term sponsor & partner model.",
-        status: "planned",
-        votes: { up: 41, down: 2 },
-      },
-      {
-        title: "Annual Community Report",
-        desc: "Transparency & public impact report.",
-        status: "planned",
-        votes: { up: 19, down: 1 },
-      },
-    ],
-  },
-];
+// helper: mapping backend status -> frontend status
+const mapStatus = (status: string): Status => {
+  switch (status) {
+    case "DONE":
+      return "done";
+    case "PROGRESS":
+      return "progress";
+    case "PLANNED":
+      return "planned";
+    default:
+      return "planned";
+  }
+};
 
 export default function RoadmapPage() {
+  const { roadmap, loading, error } = useRoadmap(2026);
+
+  if (loading) return <p className="text-center mt-20">Loading...</p>;
+  if (error) return <p className="text-center mt-20 text-red-500">Error loading roadmap</p>;
+  if (!roadmap) return <p className="text-center mt-20">No roadmap found</p>;
+
+  // mapping backend data ke frontend type
+  const quarters: Quarter[] = roadmap.quarters.map((q) => ({
+    quarter: q.quarter,
+    focus: q.focus,
+    kpi: q.kpi,
+    progress: q.progress,
+    items: q.items.map((i) => ({
+      title: i.title,
+      desc: i.desc,
+      status: mapStatus(i.status),
+      votes: i.votes,
+    })),
+  }));
+
   return (
     <main className="min-h-screen bg-black text-white pt-36 pb-28 md:pt-44 md:pb-36 px-4 space-y-16">
       <section className="max-w-4xl mx-auto text-center">
@@ -132,7 +75,7 @@ export default function RoadmapPage() {
           transition={{ duration: 0.8 }}
           className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent"
         >
-          BatamDev Roadmap 2026
+          BatamDev Roadmap {roadmap.year}
         </motion.h1>
         <p className="mt-6 text-gray-400 text-sm md:text-base">
           Transparent execution plan. Visible progress. Community-driven signals.
@@ -142,7 +85,7 @@ export default function RoadmapPage() {
       <StatusLegend />
 
       <div className="max-w-5xl mx-auto space-y-20">
-        {ROADMAP_2026.map((q, i) => (
+        {quarters.map((q, i) => (
           <motion.section
             key={q.quarter}
             initial={{ opacity: 0, y: 60 }}
@@ -156,9 +99,7 @@ export default function RoadmapPage() {
                 <h2 className="text-xl md:text-2xl font-bold text-red-400">
                   {q.quarter}
                 </h2>
-                <p className="text-gray-400 text-sm mt-1">
-                  {q.focus}
-                </p>
+                <p className="text-gray-400 text-sm mt-1">{q.focus}</p>
               </div>
               <div className="text-sm text-gray-300">
                 KPI: <span className="text-red-400">{q.kpi}</span>
