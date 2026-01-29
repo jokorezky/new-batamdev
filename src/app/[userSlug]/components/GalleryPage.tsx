@@ -1,12 +1,19 @@
 "use client";
+
 import { useCommunityAlbums } from "@/hooks/use-photo-albums";
-import Link from "next/link";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ChevronLeft, ChevronRight, Download, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  X,
+  Images,
+} from "lucide-react";
 import { format } from "date-fns";
-import { toZonedTime } from "date-fns-tz";
 import { id } from "date-fns/locale";
 
 interface AlbumUser {
@@ -21,12 +28,7 @@ interface Album {
   title: string;
   photos: string[];
   createdAt: string;
-  updatedAt: string;
   user: AlbumUser;
-  community?: {
-    _id: string;
-    name: string;
-  };
   event?: {
     _id: string;
     title: string;
@@ -39,260 +41,174 @@ export function CommunityGalleries({
 }: {
   community: { _id: string };
 }) {
-  const communityId = community._id;
-  const { albums, loading, error } = useCommunityAlbums(communityId);
+  const { albums, loading, error } = useCommunityAlbums(community._id);
+
   const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
-  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [index, setIndex] = useState(0);
 
-  const openAlbumModal = (album: Album, index: number = 0) => {
-    setSelectedAlbum(album);
-    setCurrentPhotoIndex(index);
-    setIsModalOpen(true);
+  const close = () => {
+    setSelectedAlbum(null);
+    setIndex(0);
   };
 
-  const closeAlbumModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => {
-      setSelectedAlbum(null);
-      setCurrentPhotoIndex(0);
-    }, 300);
-  };
-
-  const nextPhoto = () => {
-    if (selectedAlbum) {
-      setCurrentPhotoIndex((prev) =>
-        prev === selectedAlbum.photos.length - 1 ? 0 : prev + 1
-      );
-    }
-  };
-
-  const prevPhoto = () => {
-    if (selectedAlbum) {
-      setCurrentPhotoIndex((prev) =>
-        prev === 0 ? selectedAlbum.photos.length - 1 : prev - 1
-      );
-    }
-  };
-
-  const downloadPhoto = async () => {
+  const next = () => {
     if (!selectedAlbum) return;
+    setIndex((i) => (i + 1) % selectedAlbum.photos.length);
+  };
 
-    const photoUrl = selectedAlbum.photos[currentPhotoIndex];
-    try {
-      const response = await fetch(photoUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+  const prev = () => {
+    if (!selectedAlbum) return;
+    setIndex((i) =>
+      i === 0 ? selectedAlbum.photos.length - 1 : i - 1
+    );
+  };
 
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `photo-${currentPhotoIndex + 1}-${
-        selectedAlbum.title
-      }.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Download error:", error);
-    }
+  const download = async () => {
+    if (!selectedAlbum) return;
+    const url = selectedAlbum.photos[index];
+    const res = await fetch(url);
+    const blob = await res.blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${selectedAlbum.title}-${index + 1}.jpg`;
+    a.click();
   };
 
   if (error) {
     return (
-      <div className="text-center text-red-500 font-medium py-6">
-        Error loading photo albums: {error.message}
+      <div className="text-red-500 text-center py-10">
+        Failed to load galleries
       </div>
     );
   }
 
   return (
-    <div className="relative w-full pb-60 bg-gray-50">
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="max-w-6xl w-full h-[90vh] p-0 bg-black border-none">
+    <section className="relative bg-black text-white px-6 pb-40">
+      <div className="max-w-6xl mx-auto pt-24 pb-16">
+        <h2 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
+          Community Galleries
+        </h2>
+        <p className="text-zinc-400 mt-3 text-sm">
+          Moments, memories, and highlights from our events
+        </p>
+      </div>
+
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {albums.map((album: any) => (
+          <div
+            key={album._id}
+            onClick={() => setSelectedAlbum(album)}
+            className="group relative cursor-pointer rounded-3xl overflow-hidden
+              border border-white/10
+              bg-white/5 backdrop-blur-xl
+              transition-all duration-500
+              hover:-translate-y-2
+              hover:border-red-500
+              hover:shadow-[0_0_40px_rgba(255,0,0,0.35)]"
+          >
+            {/* COVER */}
+            <div className="relative h-56 w-full">
+              <Image
+                src={
+                  album.photos?.[0] ||
+                  `https://api.dicebear.com/6.x/shapes/svg?seed=${album._id}`
+                }
+                alt={album.title}
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+            </div>
+
+            {/* INFO */}
+            <div className="absolute bottom-0 p-5 w-full">
+              <h3 className="font-semibold text-lg truncate">
+                {album.title}
+              </h3>
+              <div className="flex items-center justify-between mt-1 text-xs text-zinc-400">
+                <span>
+                  {format(new Date(album.createdAt), "MMM d, yyyy", {
+                    locale: id,
+                  })}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Images className="w-4 h-4" />
+                  {album.photos.length}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {!loading && albums.length === 0 && (
+        <div className="text-center text-zinc-500 py-32">
+          No galleries yet
+        </div>
+      )}
+
+      {loading && (
+        <div className="flex justify-center py-20">
+          <div className="animate-spin h-6 w-6 border-2 border-zinc-600 border-t-red-500 rounded-full" />
+        </div>
+      )}
+
+      <Dialog open={!!selectedAlbum} onOpenChange={close}>
+        <DialogContent className="max-w-7xl h-[90vh] bg-black border-none p-0">
           {selectedAlbum && (
             <div className="relative h-full flex flex-col">
-              <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  onClick={downloadPhoto}
-                  className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white"
-                >
-                  <Download className="h-5 w-5" />
+              <div className="absolute top-4 right-4 z-50 flex gap-2">
+                <Button size="icon" variant="ghost" onClick={download}>
+                  <Download />
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  onClick={closeAlbumModal}
-                  className="bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white"
-                >
-                  <X className="h-5 w-5" />
+                <Button size="icon" variant="ghost" onClick={close}>
+                  <X />
                 </Button>
+              </div>
+
+              <div className="flex-1 flex items-center justify-center">
+                <img
+                  src={selectedAlbum.photos[index]}
+                  className="max-h-full max-w-full object-contain"
+                />
               </div>
 
               {selectedAlbum.photos.length > 1 && (
                 <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={prevPhoto}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 z-50 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white h-12 w-12 rounded-full"
+                  <button
+                    onClick={prev}
+                    className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-3"
                   >
-                    <ChevronLeft className="h-6 w-6" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={nextPhoto}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 z-50 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white h-12 w-12 rounded-full"
+                    <ChevronLeft />
+                  </button>
+                  <button
+                    onClick={next}
+                    className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-3"
                   >
-                    <ChevronRight className="h-6 w-6" />
-                  </Button>
+                    <ChevronRight />
+                  </button>
                 </>
               )}
-              <div className="flex-1 flex items-center justify-center p-4">
-                <img
-                  src={selectedAlbum.photos[currentPhotoIndex]}
-                  alt={`Photo ${currentPhotoIndex + 1} of ${
-                    selectedAlbum.title
-                  }`}
-                  className="max-h-full max-w-full object-contain"
-                  onError={(e) => {
-                    e.currentTarget.src = `https://api.dicebear.com/6.x/shapes/svg?seed=${selectedAlbum._id}-${currentPhotoIndex}`;
-                  }}
-                />
-              </div>
 
-              <div className="absolute bottom-4 left-4 right-4 z-50 bg-black/50 backdrop-blur-sm rounded-lg p-4 text-white">
-                <div className="flex justify-between items-center gap-2">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-lg truncate">
-                      {selectedAlbum.title}
-                    </h3>
-                    <p className="text-sm text-gray-300 hidden sm:block">
-                      Photo {currentPhotoIndex + 1} of{" "}
-                      {selectedAlbum.photos.length}
-                    </p>
-                  </div>
-                  <p className="text-sm text-gray-300 sm:hidden flex-shrink-0">
-                    {currentPhotoIndex + 1}/{selectedAlbum.photos.length}
-                  </p>
-                </div>
-              </div>
+              <div className="p-6 border-t border-white/10">
+                <h4 className="font-semibold">{selectedAlbum.title}</h4>
+                <p className="text-xs text-zinc-400 mt-1">
+                  Photo {index + 1} of {selectedAlbum.photos.length}
+                </p>
 
-              {selectedAlbum.photos.length > 1 && (
-                <div className="absolute bottom-20 left-4 right-4 z-50">
-                  <div className="flex gap-2 overflow-x-auto pb-2">
-                    {selectedAlbum.photos.map((photo, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentPhotoIndex(index)}
-                        className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                          index === currentPhotoIndex
-                            ? "border-blue-500 ring-2 ring-blue-300"
-                            : "border-transparent hover:border-white/50"
-                        }`}
-                      >
-                        <img
-                          src={photo}
-                          alt={`Thumbnail ${index + 1}`}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.currentTarget.src = `https://api.dicebear.com/6.x/shapes/svg?seed=${selectedAlbum._id}-thumb-${index}`;
-                          }}
-                        />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+                {selectedAlbum.event && (
+                  <Link
+                    href={`/events/${selectedAlbum.event.slugname}`}
+                    className="text-red-500 text-sm mt-2 inline-block hover:underline"
+                  >
+                    View event →
+                  </Link>
+                )}
+              </div>
             </div>
           )}
         </DialogContent>
       </Dialog>
-
-      {/* Konten utama */}
-      <div className="w-auto md:w-[calc(66.666%+2rem)] mx-4 md:mx-auto flex flex-col items-start space-y-4">
-        <h3 className="text-2xl font-bold tracking-tight">
-          Photo Albums <span className="text-gray-500">({albums.length})</span>
-        </h3>
-
-        {albums.length === 0 && !loading ? (
-          <div className="text-center text-gray-500 py-12 w-full">
-            No photo albums found for this community
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 w-full">
-            {albums.map((album: Album, idx: number) => (
-              <div
-                key={album._id}
-                className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-500 hover:shadow-xl md:hover:-translate-y-1 animate-fadeIn group"
-                style={{ animationDelay: `${idx * 50}ms` }}
-              >
-                {/* Album Cover - Click to open modal */}
-                <div
-                  onClick={() => openAlbumModal(album)}
-                  className="cursor-pointer relative space-y-2"
-                >
-                  <div className="relative h-40 w-full mb-3 sm:mb-4 rounded-lg overflow-hidden">
-                    {album.photos?.length > 0 ? (
-                      <img
-                        src={album.photos[0]}
-                        alt={album.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          e.currentTarget.src = `https://api.dicebear.com/6.x/shapes/svg?seed=${album._id}`;
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-500">No photos</span>
-                      </div>
-                    )}
-                    <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
-                      {album.photos?.length || 0} photos
-                    </div>
-
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                      <span className="text-white font-medium">
-                        View Photos
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Album Info */}
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-800 truncate">
-                    {album.title}
-                  </h4>
-
-                  {/* Date */}
-                  <p className="text-xs text-gray-500 mt-1 sm:mt-2">
-                    Created:{" "}
-                    {format(new Date(album.createdAt), "h:mm a - MMM d, yyyy", {
-                      locale: id,
-                    })}
-                  </p>
-                </div>
-
-                <Link
-                  href={`/events/${album.event?.slugname}`}
-                  className="text-blue-500 text-sm mt-3 sm:mt-4 inline-block hover:underline font-medium"
-                >
-                  View event details →
-                </Link>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {loading && (
-          <div className="flex justify-center py-4 text-gray-500">
-            <div className="animate-spin rounded-full h-6 w-6 border-2 border-gray-300 border-t-indigo-500"></div>
-          </div>
-        )}
-      </div>
-    </div>
+    </section>
   );
 }

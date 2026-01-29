@@ -90,7 +90,7 @@ export default function MembersPage(): JSX.Element {
   }, [hasMore, loading]);
 
   return (
-    <main className="min-h-screen bg-black text-white px-6 overflow-x-hidden">
+    <main className="min-h-screen bg-black text-white overflow-x-hidden">
       <section className="relative px-4 pt-36 pb-24 md:pt-44 md:pb-32 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
         <motion.h1
           initial={{ opacity: 0, y: 32 }}
@@ -107,7 +107,7 @@ export default function MembersPage(): JSX.Element {
           Designers, engineers, mentors, hackers, founders, and builders shaping the future of technology.
         </p>
       </section>
-      <section className="max-w-6xl mx-auto">
+      <section className="max-w-6xl mx-auto px-4">
         <motion.div
           variants={container}
           initial="hidden"

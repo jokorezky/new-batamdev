@@ -197,7 +197,7 @@ function NavButtons({
     { name: "Events", path: "" },
     { name: "About", path: "about" },
     { name: "Member", path: "members" },
-    { name: "Event Gallery", path: "event-gallery" },
+    { name: "Gallery", path: "event-gallery" },
   ];
 
   if (isAdmin) {
@@ -328,7 +328,6 @@ export function ProfileHeader({
         <div className="absolute inset-0 bg-gradient-to-t 
     from-black/80 via-black/40 to-transparent rounded-3xl" />
       </div>
-
       <div className="w-[calc(66.666%+2rem)] mx-auto -mt-20 relative z-20">
         <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
 
@@ -388,16 +387,16 @@ export function ProfileHeader({
             <MembersList members={sampleMembers} total={totalMembers} />
           </div>
         </div>
+        <div className="items-center gap-1 mb-4 pt-10">
+          <NavButtons
+            slug={slug}
+            currentPage={currentPage}
+            onNavigate={onNavigate}
+            isAdmin={isAdmin}
+          />
+        </div>
       </div>
 
-      <div className="items-center gap-1 mb-4 mx-4 flex md:hidden">
-        <NavButtons
-          slug={slug}
-          currentPage={currentPage}
-          onNavigate={onNavigate}
-          isAdmin={isAdmin}
-        />
-      </div>
       <AuthDialog
         open={authOpen}
         setOpen={setAuthOpen}

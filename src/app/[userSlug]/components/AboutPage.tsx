@@ -2,8 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { CommunityResponse } from "@/types/Community";
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 
 interface UserSlugContentProps {
   community: CommunityResponse;
@@ -15,9 +15,10 @@ export default function EventPage({ community }: UserSlugContentProps) {
   const timelineRefs = useRef<(HTMLDivElement | null)[]>([]);
   const calendarContainerRef = useRef<HTMLDivElement>(null);
 
-  const aboutContent = typeof community.about === 'string'
-    ? JSON.parse(community.about)
-    : community.about;
+  const aboutContent =
+    typeof community.about === "string"
+      ? JSON.parse(community.about)
+      : community.about;
 
   const editor = useEditor({
     content: aboutContent,
@@ -28,8 +29,10 @@ export default function EventPage({ community }: UserSlugContentProps) {
   useEffect(() => {
     const handleScroll = () => {
       if (!calendarContainerRef.current) return;
-      const calendarRect = calendarContainerRef.current.getBoundingClientRect();
-      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      const calendarRect =
+        calendarContainerRef.current.getBoundingClientRect();
+      const scrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
       const stickyStart = scrollPosition + calendarRect.top - 100;
       setIsSticky(scrollPosition > stickyStart);
     };
@@ -65,15 +68,32 @@ export default function EventPage({ community }: UserSlugContentProps) {
   }, []);
 
   return (
-    <div className="relative w-full pb-60 bg-gray-50">
-      <div className="w-auto md:w-[calc(66.666%+2rem)] mx-4 md:mx-auto flex flex-col items-start">
-        <div className="relative w-full flex flex-col md:flex-row gap-10">
-          <div className="prose prose-sm sm:prose lg:prose-lg max-w-none text-gray-800 w-full space-y-3">
-            <h1 className="text-md md:text-2xl font-bold">About</h1>
+    <section className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-black via-neutral-950 to-black">
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-red-600/20 blur-[140px] rounded-full" />
+      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-orange-500/10 blur-[120px] rounded-full" />
+
+      <div className="relative z-10 mx-auto max-w-4xl px-6 py-24">
+        <div className="mb-12">
+          <span className="text-xs tracking-widest uppercase text-red-500/80">
+            Community Insight
+          </span>
+          <h1 className="mt-2 text-3xl md:text-4xl font-semibold text-white">
+            About This Community
+          </h1>
+          <p className="mt-3 text-sm md:text-base text-neutral-400 max-w-xl">
+            Visi, misi, dan cerita di balik komunitas ini.
+          </p>
+        </div>
+
+        <div
+          ref={calendarContainerRef}
+          className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_0_40px_rgba(0,0,0,0.4)] p-8 md:p-12"
+        >
+          <div className="prose prose-invert max-w-none prose-headings:font-semibold prose-p:text-neutral-300 prose-a:text-red-400">
             <EditorContent editor={editor} />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

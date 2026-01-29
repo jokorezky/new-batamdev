@@ -1,10 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { BrainIcon, UsersIcon, LinkIcon, RocketIcon } from "lucide-react";
-import { Alert } from "@/components/ui/alert";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { useNewsQuery } from "@/hooks/useNewsMutation";
+import { LinkIcon } from "lucide-react";
 import parse, { domToReact } from "html-react-parser";
 import { Button } from "@/components/ui/button";
 import createDOMPurify from "dompurify";
@@ -27,19 +23,34 @@ type CardProps = {
   tags: tags[];
 };
 type DataDetail = { data: CardProps };
+const extractText = (nodes: any[]): string => {
+  return nodes
+    .map((node) => {
+      if (node.type === "text") return node.data;
+      if (node.children) return extractText(node.children);
+      return "";
+    })
+    .join("");
+};
 
 const CodeBlock = ({ code }: { code: string }) => {
   const [copied, setCopied] = useState(false);
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(typeof code === "string" ? code : JSON.stringify(code, null, 2));
+
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+
   return (
     <div className="relative my-4">
-      <Button onClick={copyToClipboard} className="absolute right-2 top-2 py-0 h-6">
+      <Button
+        onClick={copyToClipboard}
+        className="absolute right-2 top-2 py-0 h-6"
+      >
         {copied ? "Copied!" : "Copy"}
       </Button>
+
       <pre className="bg-[#0f0f0f] text-[#e0e0e0] p-4 rounded-lg overflow-x-auto font-mono">
         {code}
       </pre>
@@ -47,12 +58,10 @@ const CodeBlock = ({ code }: { code: string }) => {
   );
 };
 
+
 const DetailLayout: React.FC<DataDetail> = ({ data }) => {
   const [sanitizedContent, setSanitizedContent] = useState("");
   const [adInserted, setAdInserted] = useState(false);
-  const [page] = useState(1);
-  const t = useTranslations();
-  const { news: mostPopularNews } = useNewsQuery(page, 6, { isGetTrending: true });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -80,7 +89,10 @@ const DetailLayout: React.FC<DataDetail> = ({ data }) => {
         }
       }
       if (domNode.type === "tag" && domNode.name === "p") return <p className="mt-4">{domToReact(domNode.children, options)}</p>;
-      if (domNode.type === "tag" && domNode.name === "pre") return <CodeBlock code={domToReact(domNode.children) as string} />;
+      if (domNode.name === "pre" && domNode.children?.[0]?.name === "code") {
+        const codeText = extractText(domNode.children[0].children);
+        return <CodeBlock code={codeText} />;
+      }
       if (domNode.type === "tag" && domNode.name === "ul") return <ul className="pl-6 mt-2">{domToReact(domNode.children, options)}</ul>;
       if (domNode.type === "tag" && domNode.name === "code") return <code className="bg-[#1a1a1a] px-1 rounded">{domToReact(domNode.children, options)}</code>;
     },
@@ -113,21 +125,6 @@ const DetailLayout: React.FC<DataDetail> = ({ data }) => {
             ))}
           </div>
         )}
-        {data?.source_link && (
-          <Alert>
-            <div className="flex items-start gap-3">
-              <BrainIcon className="w-5 h-5 text-blue-400" />
-              <p className="text-sm">
-                Konten ini dihasilkan dengan bantuan AI berdasarkan sumber terpercaya.
-              </p>
-            </div>
-            <div className="flex items-start gap-3 mt-2">
-              <UsersIcon className="w-5 h-5 text-green-400" />
-              <p className="text-sm">Tim editor memastikan akurasi sebelum dipublikasikan.</p>
-            </div>
-          </Alert>
-        )}
-
       </div>
     </div>
   );

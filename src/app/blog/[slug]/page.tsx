@@ -1,3 +1,4 @@
+
 import { notFound } from "next/navigation";
 import BeritaDetailClient from "./BeritaDetailClient";
 import { stripHtmlAndTruncate } from "@/lib/stripHtmlAndTruncate";

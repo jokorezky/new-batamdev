@@ -91,7 +91,7 @@ const TopWidget: React.FC<DataDetail> = ({ data }) => {
 
   return (
     <div className="w-full flex justify-center py-6 px-4 bg-black">
-      <div className="w-full max-w-3xl flex flex-col items-center space-y-3 p-4">
+      <div className="w-full max-w-3xl flex flex-col items-center space-y-3 pt-4">
         <div className="relative w-full rounded-xl overflow-hidden">
           <img
             src={thumbnail}
