@@ -132,7 +132,7 @@ export default function AboutPage(): JSX.Element {
       <section className="px-4 py-28 bg-gradient-to-b from-black via-red-900/30 to-black">
         <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6 text-center">
           <Stat value={`${yearsOfCommunity}+`} label="Years of Community" />
-          <Stat value="20+" label="Events & Hackathons" />
+          <Stat value="15+" label="Events & Hackathons" />
           <Stat value="200+" label="Builders Impacted" />
           <Stat value="Always On" label="Experiments" />
         </div>
