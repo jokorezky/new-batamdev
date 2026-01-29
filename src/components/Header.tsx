@@ -1,13 +1,30 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { updateUser, login, setLoadingUser } from "@/redux/authSlice";
+import { useGetMeQuery } from "@/hooks/useGetMeQuery";
 
 export function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = React.useState(false);
+  const isAuthenticated = useAuth();
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { data, loading } = useGetMeQuery();
+
+  useEffect(() => {
+    if (!loading && data?.getMe) {
+      dispatch(updateUser(data.getMe));
+      dispatch(login());
+      dispatch(setLoadingUser(false));
+    }
+  }, [data, dispatch, loading]);
+
 
   const navItem = (href: string) =>
     clsx(
@@ -28,9 +45,18 @@ export function Header() {
     ["/about", "About"],
   ];
 
+  const { full_name, picture } = data?.getMe || {};
+  const avatarUrl =
+    picture &&
+      !picture.includes("coderjs.s3.ap-southeast-2.amazonaws.com") &&
+      !picture.includes("properioid.s3.ap-southeast-1.amazonaws.com")
+      ? picture
+      : `https://api.dicebear.com/6.x/bottts/svg?seed=${encodeURIComponent(
+        full_name || "user"
+      )}`;
   return (
     <>
-      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 backdrop-blur-lg bg-black/90 border border-red-600/50 rounded-3xl px-4 py-3 md:px-6 md:py-5 flex items-center justify-between shadow-lg w-[95%] max-w-5xl" >
+      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 backdrop-blur-lg bg-black/90 border border-red-600/50 rounded-3xl px-4 py-3 md:px-6 md:py-5 flex items-center justify-between shadow-lg w-[95%] max-w-5xl">
         <Link href="/" className="flex items-center">
           <img
             src="/header-logo.png"
@@ -38,6 +64,7 @@ export function Header() {
             className="h-8 md:h-10 w-auto cursor-pointer rounded-md"
           />
         </Link>
+
         <div className="flex items-center gap-4 md:gap-10">
           <nav className="hidden md:flex gap-6">
             {links.map(([href, label]) => (
@@ -47,27 +74,41 @@ export function Header() {
             ))}
           </nav>
 
-          <Link
-            href="/join"
-            className={clsx(
-              "px-4 py-2 md:px-6 md:py-3 rounded-xl transition font-semibold",
-              pathname === "/join"
-                ? "bg-red-700"
-                : "bg-red-600 hover:bg-red-700"
+          <div className="flex items-center gap-4">
+            {isAuthenticated && data?.getMe ? (
+              <Link href="/settings/profile">
+                <Avatar className="w-8 h-8 rounded-full cursor-pointer">
+                  <AvatarImage src={avatarUrl} alt={full_name || "User Avatar"} />
+                  <AvatarFallback className="bg-red-600 text-white font-bold">
+                    {full_name
+                      ? full_name
+                        .split(" ")
+                        .map((n: string) => n[0])
+                        .join("")
+                      : "CN"}
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
+            ) : (
+              <Link
+                href="/join"
+                className={clsx(
+                  "px-4 py-2 md:px-6 md:py-3 rounded-xl transition font-semibold",
+                  pathname === "/join"
+                    ? "bg-red-700"
+                    : "bg-red-600 hover:bg-red-700"
+                )}
+              >
+                Join
+              </Link>
             )}
-          >
-            Join
-          </Link>
+          </div>
 
           <div className="md:hidden">
             <button
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
-              className="relative w-11 h-11 rounded-xl
-              border border-red-500/40
-              bg-black/70 backdrop-blur
-              hover:bg-red-500/10 transition
-              shadow-[0_0_20px_-5px_rgba(239,68,68,0.7)]"
+              className="relative w-11 h-11 rounded-xl border border-red-500/40 bg-black/70 backdrop-blur hover:bg-red-500/10 transition shadow-[0_0_20px_-5px_rgba(239,68,68,0.7)]"
             >
               <span
                 className={clsx(
@@ -80,9 +121,7 @@ export function Header() {
               <span
                 className={clsx(
                   "absolute left-1/2 top-1/2 h-[2px] w-5 bg-red-400 transition-all duration-300",
-                  open
-                    ? "opacity-0"
-                    : "-translate-x-1/2 -translate-y-1/2"
+                  open ? "opacity-0" : "-translate-x-1/2 -translate-y-1/2"
                 )}
               />
               <span
@@ -111,7 +150,6 @@ export function Header() {
             open ? "opacity-100" : "opacity-0"
           )}
         />
-
         <div
           className={clsx(
             `
@@ -127,7 +165,6 @@ export function Header() {
               ? "opacity-100 translate-y-0 scale-100 mt-4"
               : "opacity-0 -translate-y-6 scale-95"
           )}
-
         >
           <nav className="flex flex-col divide-y">
             {links.map(([href, label], i) => (

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import {
   FormItem,
@@ -68,11 +70,12 @@ export function ImageUpload({
     <FormField name={name}>
       {(field) => (
         <FormItem className="space-y-3">
-          <FormLabel className="font-bold">
-            {label} {isRequired && <span className="text-red-500">*</span>}
+          <FormLabel className="font-bold text-red-500 text-center block">
+            {label} {isRequired && <span className="text-red-600">*</span>}
           </FormLabel>
           <FormControl>
-            <div className="relative">
+            {/* Parent div untuk center horizontal & vertical */}
+            <div className="flex flex-col items-center justify-center min-h-[200px]">
               <Input
                 id={name}
                 type="file"
@@ -84,25 +87,30 @@ export function ImageUpload({
                 className="hidden"
               />
               {imagePreview ? (
-                <label htmlFor={name} className="cursor-pointer">
+                <label
+                  htmlFor={name}
+                  className="cursor-pointer w-48 h-48 rounded-xl overflow-hidden shadow-[0_0_15px_2px_rgba(239,68,68,0.6)] transition-all hover:scale-105 mx-auto flex items-center justify-center"
+                >
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    className="w-48 h-48 object-cover rounded-lg"
+                    className="max-w-full max-h-48 object-contain rounded-xl"
                   />
                 </label>
               ) : (
                 <label
                   htmlFor={name}
-                  className="cursor-pointer w-48 h-48 border-2 border-dashed border-gray-400 rounded-lg text-center flex items-center justify-center  "
+                  className="cursor-pointer w-48 h-48 border-2 border-dashed border-red-600/60 rounded-xl text-center flex items-center justify-center bg-black/80 text-red-400 hover:border-red-500 hover:shadow-[0_0_10px_2px_rgba(239,68,68,0.5)] transition-all mx-auto"
                 >
                   {select}
                 </label>
               )}
-              <p className="pt-2 text-muted-foreground text-sm">{hinText}</p>
+              {hinText && (
+                <p className="pt-2 text-sm text-red-400 text-center">{hinText}</p>
+              )}
             </div>
           </FormControl>
-          <FormMessage />
+          <FormMessage className="text-red-500" />
         </FormItem>
       )}
     </FormField>

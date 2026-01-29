@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -11,22 +13,22 @@ import DetailProfileForm from "@/components/Settings/DetailProfileForm";
 
 const LearningPath = () => {
   return (
-    <div className="px-4 md:px-36 py-10 w-full">
-      <Card>
+    <section className="relative max-w-6xl px-4 pt-32 pb-24 md:pt-40 md:pb-32 bg-gradient-to-b from-black via-red-900/40 to-black">
+      <Card className="bg-black/95 border  border-red-600 shadow-lg rounded-2xl">
         <CardHeader>
-          <CardTitle className="text-xl py-4 font-bold text-black">
+          <CardTitle className="text-2xl py-4 font-bold text-red-500">
             Profil Pengguna
           </CardTitle>
-          <Separator />
+          <Separator className="border-red-600/40" />
         </CardHeader>
         <CardContent>
-          <CardDescription className="w-full">
+          <CardDescription className="w-full text-gray-200">
             <ProfileForm />
             <DetailProfileForm />
           </CardDescription>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 };
 

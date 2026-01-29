@@ -124,18 +124,22 @@ export default function ProfileForm() {
           <InputField
             label="Email"
             name="email"
-            placeholder="Enter your email"
+            placeholder="Email"
             type="email"
-            description="Anda dapat mengubah alamat email melalui menu Akun."
             isDisabled
+            description="Anda dapat mengubah alamat email melalui menu Akun."
+            
           />
           <div className="pb-5">
-            <div className="space-y-2">
-              <TextareaField label="Tentang Saya" name="bio" placeholder="" />
-              <p className="text-[0.8rem] text-muted-foreground">
-                Tulis cerita singkat tentang diri Anda.
-              </p>
-            </div>
+            <TextareaField
+              label="Tentang Saya"
+              name="bio"
+              placeholder="Tulis bio singkat tentang dirimu"
+              
+            />
+            <p className="text-[0.8rem] text-red-400">
+              Tulis cerita singkat tentang diri Anda.
+            </p>
           </div>
         </div>
         <div>
@@ -143,21 +147,20 @@ export default function ProfileForm() {
             label="Foto Diri"
             name="picture"
             select="Pilih Foto"
-            hinText="Gambar Profile Anda sebaiknya memiliki rasio 1:1
-            dan berukuran tidak lebih dari 2MB."
+            hinText="Sebaiknya rasio 1:1 dan <2MB"
             onFileChange={handleImageUpload}
             initialImage={user?.picture}
           />
         </div>
       </div>
       <Button
-        className="mt-5 md:mt-0"
-        variant="secondary"
+        className="mt-5 md:mt-0 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg transition-all"
         type="submit"
         disabled={loading}
       >
         {isSubmitting ? "MENYIMPAN..." : "SIMPAN"}
       </Button>
     </Form>
+
   );
 }
