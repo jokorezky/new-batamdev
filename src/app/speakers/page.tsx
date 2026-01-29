@@ -44,7 +44,7 @@ export default function SpeakersPage(): JSX.Element {
         </motion.h1>
 
         <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-sm md:text-lg">
-          Engineers, builders, and security leaders shaping real-world systems.
+          Practitioners and industry leaders sharing real-world experience and applied knowledge.
         </p>
 
         <div className="mt-8 flex justify-center text-red-500">
@@ -139,11 +139,11 @@ export default function SpeakersPage(): JSX.Element {
           className="max-w-3xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Want to Speak at Our Event?
+            Interested in Speaking or Mentoring?
           </h2>
 
           <p className="text-gray-400 mb-8 text-sm md:text-base">
-            Builders with real systems. No marketing talks.
+            We welcome practitioners who bring real experience, practical insights, and meaningful contributions. No marketing-driven sessions.
           </p>
 
           <Link href="/speakers/apply">
@@ -151,7 +151,7 @@ export default function SpeakersPage(): JSX.Element {
               size="lg"
               className="px-10 rounded-2xl bg-red-600 hover:bg-red-700"
             >
-              Apply as Speaker
+              Submit Application
             </Button>
           </Link>
         </motion.div>
