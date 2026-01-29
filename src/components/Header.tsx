@@ -19,6 +19,7 @@ export function Header() {
 
   const links = [
     ["/", "Home"],
+    ["/roadmap", "Roadmap"],
     ["/events", "Event"],
     ["/hackathon", "Hackathon"],
     ["/members", "Members"],

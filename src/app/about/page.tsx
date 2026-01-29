@@ -73,7 +73,6 @@ export default function AboutPage(): JSX.Element {
         </motion.div>
       </section>
 
-      {/* WHY WE EXIST */}
       <section className="px-4 py-28 bg-black/80 border-t border-red-600/20">
         <div className="max-w-5xl mx-auto text-center">
           <motion.h2
@@ -97,7 +96,6 @@ export default function AboutPage(): JSX.Element {
         </div>
       </section>
 
-      {/* WHAT WE BUILD */}
       <section className="px-4 py-28 max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -128,7 +126,6 @@ export default function AboutPage(): JSX.Element {
         </div>
       </section>
 
-      {/* IMPACT */}
       <section className="px-4 py-28 bg-gradient-to-b from-black via-red-900/30 to-black">
         <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-6 text-center">
           <Stat value={`${yearsOfCommunity}+`} label="Years of Community" />
@@ -138,7 +135,6 @@ export default function AboutPage(): JSX.Element {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="px-4 py-28 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -174,7 +170,6 @@ export default function AboutPage(): JSX.Element {
   );
 }
 
-/* COMPONENTS */
 
 function InfoCard({ icon, title }: { icon: React.ReactNode; title: string }) {
   return (
