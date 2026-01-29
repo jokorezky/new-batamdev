@@ -33,7 +33,7 @@ export default function AboutPage(): JSX.Element {
         </motion.h1>
 
         <p className="mt-6 max-w-2xl mx-auto text-gray-400 text-sm md:text-lg leading-relaxed">
-          BatamDev is a technology community and experimentation platform
+          batamdev is a technology community and experimentation platform
           focused on real-world systems, hackathons, and elite technical growth.
         </p>
       </section>
@@ -46,10 +46,10 @@ export default function AboutPage(): JSX.Element {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl font-bold text-red-400 mb-4">
-            What is BatamDev?
+            What is batamdev?
           </h2>
           <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-            BatamDev is not just a community.
+            batamdev is not just a community.
             It is an ecosystem where developers, security engineers,
             system builders, and innovators collaborate through
             hackathons, events, and real technical challenges.
@@ -87,7 +87,7 @@ export default function AboutPage(): JSX.Element {
 
           <p className="text-gray-400 max-w-3xl mx-auto leading-relaxed text-sm md:text-base">
             Too many tech communities stop at talks and slides.
-            BatamDev exists to push builders beyond comfort
+            batamdev exists to push builders beyond comfort
             into building, breaking, securing, and shipping real systems.
             <br /><br />
             We believe serious talent is forged through challenges,

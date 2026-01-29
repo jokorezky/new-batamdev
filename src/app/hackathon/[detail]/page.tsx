@@ -15,7 +15,7 @@ export default function HackathonPage(): JSX.Element {
           transition={{ duration: 0.9 }}
           className="text-4xl md:text-6xl font-extrabold tracking-tight"
         >
-          BatamDev Hackathon 2026
+          batamdev Hackathon 2026
         </motion.h1>
 
         <p className="mt-6 max-w-2xl mx-auto text-gray-300 text-sm md:text-lg">
@@ -40,14 +40,12 @@ export default function HackathonPage(): JSX.Element {
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-red-600/20 to-transparent blur-3xl" />
       </section>
 
-      {/* META INFO */}
       <section className="px-4 py-12 md:py-20 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
         <MetaCard icon={<Calendar />} title="Date" value="15–17 March 2026" />
         <MetaCard icon={<Users />} title="Participants" value="Selected Teams Only" />
         <MetaCard icon={<Shield />} title="Format" value="Legal & Controlled Simulation" />
       </section>
 
-      {/* WHY */}
       <section className="px-4 py-20 md:py-32 max-w-6xl mx-auto" id="details">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-14">
           Why This Hackathon Is Different
@@ -72,7 +70,6 @@ export default function HackathonPage(): JSX.Element {
         </div>
       </section>
 
-      {/* TIMELINE */}
       <section className="px-4 py-20 md:py-32 bg-black/70">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
           Hackathon Flow
@@ -86,7 +83,6 @@ export default function HackathonPage(): JSX.Element {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="px-4 py-28 md:py-40 text-center bg-gradient-to-b from-black via-red-900/40 to-black">
         <h2 className="text-3xl md:text-5xl font-bold mb-6">
           Only For Serious Builders

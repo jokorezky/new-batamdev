@@ -130,7 +130,7 @@ export default function SpeakerDetailPage(): JSX.Element {
               {[
                 {
                   title: "Building AI Systems That Survive Reality",
-                  event: "BatamDev Hackathon 2026",
+                  event: "batamdev Hackathon 2026",
                 },
                 {
                   title: "Designing Secure Architectures Under Pressure",

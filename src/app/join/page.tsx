@@ -56,7 +56,7 @@ export default function JoinPage({ onLoginSuccess }: LoginFormProps): JSX.Elemen
           Join the Builders
         </h1>
         <p className="mt-4 text-gray-400 text-sm md:text-base leading-relaxed">
-          BatamDev is an ecosystem for builders who ship, break, secure, and experiment with real systems.
+          batamdev is an ecosystem for builders who ship, break, secure, and experiment with real systems.
         </p>
         {errorGmail && (
           <p className="mt-4 text-red-500 text-sm">

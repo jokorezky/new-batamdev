@@ -5,11 +5,11 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "BatamDev – Empowering Batam's Tech Community",
+  title: "batamdev – Empowering Batam's Tech Community",
   description:
-    "BatamDev is a technology and developer community in Batam focused on collaboration, events, hackathons, and growing digital talent.",
+    "batamdev is a technology and developer community in Batam focused on collaboration, events, hackathons, and growing digital talent.",
   keywords: [
-    "BatamDev",
+    "batamdev",
     "Batam Developer Community",
     "Tech Community Batam",
     "Hackathon Batam",
@@ -17,24 +17,24 @@ export const metadata: Metadata = {
     "Software Engineers Batam"
   ],
   openGraph: {
-    title: "BatamDev – Empowering Batam's Tech Community",
+    title: "batamdev – Empowering Batam's Tech Community",
     description:
       "A developer community in Batam for collaboration, hackathons, workshops, and real-world tech innovation.",
     url: "https://batamdev.org",
-    siteName: "BatamDev",
+    siteName: "batamdev",
     images: [
       {
         url: "https://batamdev.org/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "BatamDev – Empowering Batam's Tech Community",
+        alt: "batamdev – Empowering Batam's Tech Community",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "BatamDev – Empowering Batam's Tech Community",
+    title: "batamdev – Empowering Batam's Tech Community",
     description:
       "Connecting developers in Batam through events, hackathons, and technology collaboration.",
     images: ["https://batamdev.org/og-image.jpg"],

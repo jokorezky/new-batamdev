@@ -75,7 +75,7 @@ export default function RoadmapPage() {
           transition={{ duration: 0.8 }}
           className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent"
         >
-          BatamDev Roadmap {roadmap.year}
+          batamdev Roadmap {roadmap.year}
         </motion.h1>
         <p className="mt-6 text-gray-400 text-sm md:text-base">
           Transparent execution plan. Visible progress. Community-driven signals.

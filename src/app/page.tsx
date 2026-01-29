@@ -117,7 +117,7 @@ export default function FuturisticCommunityLanding(): JSX.Element {
         >
           <img
             src="https://res.cloudinary.com/dbnxkii6r/image/upload/v1762769258/image/event/image/event/ed1d6dae-f0b9-4de2-b279-1743b9ee23c3_logo-batamdev-white.png"
-            alt="BatamDev Logo"
+            alt="Batamdev Logo"
             className="h-24 md:h-32 max-w-full object-contain animate-pulse"
           />
 
@@ -343,7 +343,7 @@ export default function FuturisticCommunityLanding(): JSX.Element {
           Ready to Level Up?
         </h2>
         <p className="text-gray-400 mb-8 max-w-xl mx-auto text-sm md:text-base">
-          Join BatamDev and become part of the next generation of technology builders.
+          Join batamdev and become part of the next generation of technology builders.
         </p>
         <Link
           href="/join"

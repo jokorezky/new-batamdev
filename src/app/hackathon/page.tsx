@@ -22,14 +22,14 @@ interface HackathonItem {
 
 // const hackathons: HackathonItem[] = [
 //   {
-//     title: "BatamDev Hackathon",
+//     title: "batamdev Hackathon",
 //     year: "2026",
 //     status: "ONGOING",
 //     theme: "AI • Security • Systems",
 //     slug: "2026",
 //   },
 //   {
-//     title: "BatamDev Hackathon",
+//     title: "batamdev Hackathon",
 //     year: "2025",
 //     status: "COMPLETED",
 //     theme: "Web • Startup • Automation",
@@ -173,7 +173,7 @@ export default function HackathonArchivePage(): JSX.Element {
           </h2>
 
           <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-sm md:text-base">
-            Partner with BatamDev to run high-impact hackathons. real systems,
+            Partner with batamdev to run high-impact hackathons. real systems,
             real builders, real evaluation. Ideal for companies, institutions,
             and organizations seeking talent, innovation, and visibility.
           </p>
