@@ -51,7 +51,7 @@ const CodeBlock = ({ code }: { code: string }) => {
         {copied ? "Copied!" : "Copy"}
       </Button>
 
-      <pre className="bg-[#0f0f0f] text-[#e0e0e0] p-4 rounded-lg overflow-x-auto font-mono">
+      <pre className="bg-[#0f0f0f] text-gray-500 p-4 rounded-lg overflow-x-auto font-mono">
         {code}
       </pre>
     </div>

@@ -120,7 +120,7 @@ export default function ProfileForm() {
   };
 
   return (
-    <div className="bg-black min-h-screen p-6 text-white font-sans">
+    <div className="bg-black min-h-screen text-white font-sans">
       <Form {...form}>
         <Separator className="my-4 border-red-500" />
         <p className="text-2xl py-4 font-bold text-red-500 tracking-wide uppercase">Candidate Profile</p>
@@ -200,7 +200,7 @@ export default function ProfileForm() {
               <FormItem>
                 <FormLabel className="font-semibold text-red-400">Upload Resume</FormLabel>
                 <FormControl>
-                  <div className="w-full border-2 border-dashed border-red-500 rounded-xl p-4 bg-black hover:shadow-lg hover:shadow-red-500/50 transition-all">
+                  <div className="w-full border-2 space-y-4 border-dashed border-red-500 rounded-xl p-4 bg-black hover:shadow-lg hover:shadow-red-500/50 transition-all">
                     {form.watch("resumeUrl") && (
                       <a
                         href={form.watch("resumeUrl")}
@@ -224,7 +224,7 @@ export default function ProfileForm() {
                     />
                   </div>
                 </FormControl>
-                <p className="text-xs text-red-500 mt-2 leading-relaxed">
+                <p className="text-xs text-red-500 mt-2 leading-relaxed pt-4">
                   Kami menerima dokumen PDF atau Microsoft Office max 5MB.
                 </p>
                 <FormMessage />
@@ -359,7 +359,7 @@ export default function ProfileForm() {
           )} />
 
           <Button type="submit" variant="secondary" disabled={saving}
-            className="bg-red-500 text-black hover:bg-red-600 hover:text-white transition-all">
+            className="mt-5 md:mt-0 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg transition-all">
             {saving ? "MENYIMPAN..." : "SIMPAN"}
           </Button>
         </form>

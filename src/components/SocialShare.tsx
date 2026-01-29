@@ -27,7 +27,7 @@ export default function SocialShare() {
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-full text-gray-600 hover:text-gray-900 transition-transform transition-colors duration-300 transform hover:scale-110"
+            className="p-2 rounded-full text-gray-600 hover:text-red-700 transition-colors duration-300 transform hover:scale-110"
           >
             <Icon size={20} />
           </a>
@@ -36,7 +36,7 @@ export default function SocialShare() {
 
       <button
         onClick={handleCopy}
-        className="relative p-2 rounded-full text-gray-600 hover:text-gray-900 transition-transform transition-colors duration-300 transform hover:scale-110"
+        className="relative p-2 rounded-full text-gray-600 hover:text-red-700 transition-colors duration-300 transform hover:scale-110"
       >
         <Copy size={20} />
         {copied && (
