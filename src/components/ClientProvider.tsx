@@ -83,7 +83,7 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
     <ApolloProvider client={apolloClient}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <GoogleOAuthProvider clientId="723987449429-e6rnpcrdjc1of52cop09qotr34k16ap7.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId="594544788808-r86u62us389pralrq94jjffau32vdq5j.apps.googleusercontent.com">
             <LanguageProvider>
               <IntlWrapper>
                 <TooltipProvider>
