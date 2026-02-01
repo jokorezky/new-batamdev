@@ -33,7 +33,7 @@ export default function JoinPage(): JSX.Element {
     const { token, refreshToken } = responseLoginGoogle.loginGoogle;
     Cookies.set("token", token, { expires: 7 });
     Cookies.set("refresh_token", refreshToken);
-    router.push("/settings/profile");
+    window.location.href = "/settings/profile";
   }
 }, [responseLoginGoogle, router]);
 
