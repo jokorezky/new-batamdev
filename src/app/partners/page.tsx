@@ -266,12 +266,12 @@ export default function PartnersPage(): JSX.Element {
                     and high-impact real-world experiments.
                 </p>
 
-                <Button
-                    size="lg"
+                <Link
+                    href="/partners/apply"
                     className="rounded-2xl px-10 py-6 text-lg bg-red-600 hover:bg-red-700"
                 >
                     Partner With Us
-                </Button>
+                </Link>
             </section>
         </main>
     );
