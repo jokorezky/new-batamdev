@@ -134,9 +134,9 @@ export default function FuturisticCommunityLanding(): JSX.Element {
               >
                 Join Now <ArrowRight className="w-4 h-4" />
               </Link>
-              <button className="relative border border-red-600 text-red-400 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-red-600/20 transition text-sm md:text-base shadow-md hover:shadow-[0_0_25px_rgba(255,0,0,0.5)]">
+              <Link href="/roadmap" className="relative border border-red-600 text-red-400 px-4 py-2 md:px-6 md:py-3 rounded-xl hover:bg-red-600/20 transition text-sm md:text-base shadow-md hover:shadow-[0_0_25px_rgba(255,0,0,0.5)]">
                 View Roadmap
-              </button>
+              </Link>
             </div>
             <p className="text-gray-400 text-center text-sm md:text-base mt-4 tracking-wide italic">
               Join <span className="text-red-600 font-bold">{totalMembers}+</span> builders shaping the tech of tomorrow.
@@ -219,7 +219,7 @@ export default function FuturisticCommunityLanding(): JSX.Element {
               </p>
 
               <Link
-                href="/be-a-speaker"
+                href="/speakers/apply"
                 className="mt-2 inline-flex items-center gap-2 px-6 py-3 rounded-xl
                border border-red-500 text-red-400 hover:bg-red-500/10
                hover:text-red-300 transition shadow-md

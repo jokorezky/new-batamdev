@@ -242,7 +242,7 @@ export default function EventsPage(): JSX.Element {
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
             <Link
-              href="/be-a-speaker"
+              href="/speakers/apply"
               className="inline-flex items-center gap-2
               bg-red-600 px-10 py-4 rounded-2xl
               hover:bg-red-700 transition"

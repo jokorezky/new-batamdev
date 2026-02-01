@@ -147,7 +147,7 @@ export default function ProfileForm() {
             label="Foto Diri"
             name="picture"
             select="Pilih Foto"
-            hinText="Sebaiknya rasio 1:1 dan <2MB"
+            hinText="Rasio 1:1 dan <2MB"
             onFileChange={handleImageUpload}
             initialImage={user?.picture}
           />
