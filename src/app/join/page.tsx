@@ -9,11 +9,8 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-type LoginFormProps = {
-  onLoginSuccess?: () => void;
-};
 
-export default function JoinPage({ onLoginSuccess }: LoginFormProps): JSX.Element {
+export default function JoinPage(): JSX.Element {
   const router = useRouter();
   const { loginGoogleSubmit, responseLoginGoogle, error: errorGmail } = useLoginGoogleSubmit();
 
@@ -32,14 +29,13 @@ export default function JoinPage({ onLoginSuccess }: LoginFormProps): JSX.Elemen
   });
 
   useEffect(() => {
-    if (responseLoginGoogle) {
-      const { token, refreshToken } = responseLoginGoogle.loginGoogle;
-      Cookies.set("token", token, { expires: 7 });
-      Cookies.set("refresh_token", refreshToken);
-      if (onLoginSuccess) onLoginSuccess();
-      router.push("/");
-    }
-  }, [responseLoginGoogle, onLoginSuccess, router]);
+  if (responseLoginGoogle) {
+    const { token, refreshToken } = responseLoginGoogle.loginGoogle;
+    Cookies.set("token", token, { expires: 7 });
+    Cookies.set("refresh_token", refreshToken);
+    router.push("/settings/profile");
+  }
+}, [responseLoginGoogle, router]);
 
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center px-4 overflow-x-hidden overflow-y-auto relative">
