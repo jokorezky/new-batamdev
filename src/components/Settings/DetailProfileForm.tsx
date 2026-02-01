@@ -93,8 +93,21 @@ export default function ProfileForm() {
         const cities = selected?.city.map((c: string) => ({ label: c, value: c })) || [];
         setKotaOptions(cities);
       }
+    } else {
+      reset({
+        province: "",
+        city: "",
+        bio: "",
+        resumeUrl: "",
+        socialLinks: [],
+        portfolios: [],
+        selectedSkills: [],
+      });
+      setSelectedProvinsi("");
+      setKotaOptions([]);
     }
   }, [onboarding, reset]);
+
 
   useEffect(() => {
     if (kotaOptions.length > 0) {
